@@ -87,39 +87,58 @@ displayPeople();
 // };
 
 const handleAddBttn = (e) => {
-    const html = `
-    <div class="add_form">
-        <fieldset>
-            <label for="first_name">First name</label>
-            <input type="text" id="first_name" name="firstname" placeholder="enter your firstname">
-        </fieldset>
-        <fieldset>
-            <label for="last_name">Last name</label>
-            <input type="text" id="last_name" name="lastname" placeholder="enter your lastname">
-        </fieldset>
-        <fieldset>
-            <label for="birthday">Birthday</label>
-            <input type="number" id="birthday" name="birthday" placeholder="enter your birthday">
-        </fieldset>
-        <fieldset>
-            <label for="profile">Avatar image</label>
-            <input type="url" id="profile" name="picture" placeholder="https://onja.org/wp-content/uploads/2019/08/Clopedia@2x-430x520.jpg">
-        </fieldset>
-        <button class="submitbttn" type="submit">Submit</button>
-    </div>
-    `;
-    innerModal.insertAdjacentHTML('afterbegin', html);
-    outerModal.classList.add('open');
+    return new Promise(function(resolve) {
+        const form = document.createElement('form');
+        form.classList.add('form');
+
+        const html = `
+        <div class="add_form">
+            <h2>Add your name and your birthday</h2>
+            <fieldset>
+                <label for="first_name">First name</label>
+                <input type="text" id="first_name" name="firstname" placeholder="enter your firstname">
+            </fieldset>
+            <fieldset>
+                <label for="last_name">Last name</label>
+                <input type="text" id="last_name" name="lastname" placeholder="enter your lastname">
+            </fieldset>
+            <fieldset>
+                <label for="birthday">Birthday</label>
+                <input type="number" id="birthday" name="birthday" placeholder="enter your birthday">
+            </fieldset>
+            <fieldset>
+                <label for="profile">Avatar image</label>
+                <input type="url" id="profile" name="picture" placeholder="https://onja.org/wp-content/uploads/2019/08/Clopedia@2x-430x520.jpg">
+            </fieldset>
+            <button class="submitbttn" type="submit">Submit</button>
+        </div>
+        `;
+        form.innerHTML = html;
+
+        innerModal.innerHTML = html;
+        outerModal.classList.add('open');
+        resolve();
+
+
+        form.addEventListener('submit', handleSubmit);
+        e.preventDefault();
+        const formEl = e.currentTarget;
+
+        const newDate = {
+            firstname: formEl.firstname.value,
+            lastname: formEl.lastname.value,
+            birthday: formEl.birthday.value,
+            picture: formEl.picture.value,
+            id: Date.now(),
+        };
+    });
 };
+
 
 const closeModal = () => {
     outerModal.classList.remove('open');
 }
 
-const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(e.target.closest('button.submitbttn'));
-};
 
 addBttn.addEventListener('click', handleAddBttn);
 outerModal.addEventListener('click', (e) => {
@@ -134,7 +153,6 @@ window.addEventListener('keydown', (e) => {
     }
 });
 
-window.addEventListener('submit', handleSubmit);
 
 
 

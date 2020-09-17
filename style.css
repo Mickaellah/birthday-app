@@ -10,6 +10,11 @@ h1 {
     text-shadow: 2px 2px yellow;
 }
 
+h2 {
+    color: indigo;
+    text-transform: uppercase;
+}
+
 .add {
     padding: 16px;
     background-color: blueviolet;
