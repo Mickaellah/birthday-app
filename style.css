@@ -1,0 +1,16 @@
+ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.profile {
+    border-radius: 50%;
+}
+
+.edit,
+.delete {
+    border: none;
+    background-color: transparent;
+}
