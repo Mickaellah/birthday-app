@@ -1,17 +1,19 @@
 const personList = document.querySelector('.people');
-
+const outerModal = document.querySelector('.outer_modal');
+const innerModal = document.querySelector('.inner_modal');
+const addBttn = document.querySelector('.add');
 
 
 async function fetchPeople() {
     const response = await fetch('./people.json');
-    const data = response.json();
+    const data = await response.json();
     return data;
 }
 
 
 async function displayPeople() {
     const people = await fetchPeople();
-    const html  = people.map(person => {
+    const html = people.map(person => {
         return `
             <ul>
                 <li>
@@ -38,3 +40,101 @@ async function displayPeople() {
 }
 
 displayPeople();
+
+
+// const handleClick = (e) => {
+//     const updateItem = e.target.closest('button.edit');
+//     if (updateItem) {
+//         const id = Number(updateItem.id);
+//         editItem(id);
+//     }
+// }
+
+// const editItem = (id) => {
+//     const itemToEdit = people.find(person => person.id === id);
+
+//     const html = `
+//         <div>
+//             <fieldset>
+//                 <label for="first_name">First name</label>
+//                 <input type="text" id="first_name" name="firstname">
+//             </fieldset>
+//             <fieldset>
+//                 <label for="last_name">Last name</label>
+//                 <input type="text" id="last_name" name="lastname">
+//             </fieldset>
+//             <fieldset>
+//                 <label for="birthday">Birthday</label>
+//                 <input type="number" id="birthday" name="birthday">
+//             </fieldset>
+//             <fieldset>
+//                 <label for="profile">Avatar image</label>
+//                 <input type="url" id="profile" name="picture">
+//             </fieldset>
+//             <fieldset>
+//                 <label for=""></label>
+//                 <input type="text" id="">
+//             </fieldset>
+//         </div>
+//     `;
+//     innerModal.innerHTML = html;
+// };
+
+// personList.addEventListener('click', handleClick);
+
+// const deleteItem = (id) => {
+
+// };
+
+const handleAddBttn = (e) => {
+    const html = `
+    <div class="add_form">
+        <fieldset>
+            <label for="first_name">First name</label>
+            <input type="text" id="first_name" name="firstname" placeholder="enter your firstname">
+        </fieldset>
+        <fieldset>
+            <label for="last_name">Last name</label>
+            <input type="text" id="last_name" name="lastname" placeholder="enter your lastname">
+        </fieldset>
+        <fieldset>
+            <label for="birthday">Birthday</label>
+            <input type="number" id="birthday" name="birthday" placeholder="enter your birthday">
+        </fieldset>
+        <fieldset>
+            <label for="profile">Avatar image</label>
+            <input type="url" id="profile" name="picture" placeholder="https://onja.org/wp-content/uploads/2019/08/Clopedia@2x-430x520.jpg">
+        </fieldset>
+        <button class="submitbttn" type="submit">Submit</button>
+    </div>
+    `;
+    innerModal.insertAdjacentHTML('afterbegin', html);
+    outerModal.classList.add('open');
+};
+
+const closeModal = () => {
+    outerModal.classList.remove('open');
+}
+
+const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(e.target.closest('button.submitbttn'));
+};
+
+addBttn.addEventListener('click', handleAddBttn);
+outerModal.addEventListener('click', (e) => {
+    const isOutside = !e.target.closest('.inner_modal');
+    if (isOutside) {
+        closeModal();
+    }
+});
+window.addEventListener('keydown', (e) => {
+    if (e.key === "Escape") {
+        closeModal();
+    }
+});
+
+window.addEventListener('submit', handleSubmit);
+
+
+
