@@ -121,18 +121,85 @@ const handleAddBttn = async (e) => {
 
         }, { once: true });
 
-
-
-        
-
         document.body.appendChild(form);
         await wait(50);
         form.classList.add('open');
     });
 };
 
+const handleClick = (e) => {
+    const editBtn = e.target.closest('button.edit');
+
+    if (editBtn) {
+        const id = editBtn.value;
+        handleEditBttn(id);
+        console.log("Edit this person's information");
+    }
+
+};
+
+const handleEditBttn = (id) => {
+    return new Promise(async function(resolve, reject) {
+    let form = document.createElement('form');
+    form.classList.add('form');
+
+    const html = `
+    <div class="edit_form">
+        <fieldset>
+            <label for="firstname">Your firstname</label>
+            <input type="text" id="firstname" placeholder="your firstname" required>
+        </fieldset>
+        <fieldset>
+            <label for="lastname">Your lastname</label>
+            <input type="text" id="lastname" placeholder="your lastname" required>
+        </fieldset>
+        <fieldset>
+            <label for="birthday">Your birthday date</label>
+            <input type="date" id="birthday" placeholder="your birthday" required>
+        </fieldset>
+        <fieldset>
+            <label for="picture">Profile picture</label>
+            <input type="url" id="picture" placeholder="https://onja.org/wp-content/uploads/2019/08/Clopedia@2x-430x520.jpg" required>
+        </fieldset>
+        <button class="submitbttn" type="submit">Submit</button>
+    </div>
+    `;
+    form.innerHTML = html;
+    resolve();
+
+    const destroyPopup = async () => {
+        form.classList.remove('open');
+        await wait(1000);
+        form.remove();
+        form = null;
+    }
+    
+
+    if (reject) {
+        const skipButton = document.createElement('button');
+        skipButton.type = "button";
+        skipButton.textContent = "Cancel"
+        skipButton.classList.add('cancel');
+
+        form.firstElementChild.appendChild(skipButton);
+        skipButton.addEventListener('click', () => {
+            resolve(null);
+            destroyPopup(form);
+        }, { once: true });
+    }
+
+    document.body.appendChild(form);
+    await wait(50);
+    form.classList.add('open');
+    });
+};
+
+const handleDeleteBttn = (id) => {
+
+};
 
 addBttn.addEventListener('click', handleAddBttn);
+window.addEventListener('click', handleClick);
 
 
 

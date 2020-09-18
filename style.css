@@ -40,7 +40,8 @@ ul {
     background-color: transparent;
 }
 
-.add_form {
+.add_form,
+.edit_form {
     background-color: cadetblue;
     border: 24px solid white;
     border-radius: 24px;
