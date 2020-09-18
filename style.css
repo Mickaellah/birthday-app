@@ -54,7 +54,8 @@ input {
 }
 
 .submitbttn,
-.cancel {
+.cancel,
+.yes {
     padding: 8px;
     border-radius: 5px;
     border: none;
@@ -62,6 +63,26 @@ input {
     margin-inline-start: 16px;
     margin-block-start: 32px;
     margin-block-end: 32px;
+}
+
+.delete_item:not(.no) {
+    background-color: lightblue;
+    padding: 24px;
+    border-radius: 5px;
+    border: 20px solid black;
+}
+
+.yes {
+    padding-inline: 20px;
+}
+
+
+.no {
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    background-color: darksalmon;
+    margin-inline-start: 16px;
 }
 
 
@@ -78,7 +99,6 @@ input {
 	pointer-events: none;
 	--opacity: 0;
     opacity: var(--opacity);
-    
 }
 
 .form fieldset {
@@ -100,4 +120,25 @@ input {
 
 .form.open fieldset {
     --scale: 1;
+}
+
+.want_to_delete {
+	background: hsla(0, 0%, 30%, 0.5);
+	position: fixed;
+	height: 100vh;
+	width: 100vw;
+	transition: all 0.25s;
+	top: 0;
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	pointer-events: none;
+	--opacity: 0;
+    opacity: var(--opacity);
+    
+}
+
+.want_to_delete.open {
+	--opacity: 1;
+    pointer-events: all;
 }

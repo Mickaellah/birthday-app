@@ -1,7 +1,10 @@
+// Grab some elements which are used in this project.
+
 const personList = document.querySelector('.people');
 const addBttn = document.querySelector('.add');
 
 
+// A function that fetch the data.
 async function fetchPeople() {
     const response = await fetch('./people.json');
     const data = await response.json();
@@ -10,6 +13,7 @@ async function fetchPeople() {
 }
 
 
+// A functin to display the data into html.
 async function displayPeople() {
     const people = await fetchPeople();
     const html = people.map(person => {
@@ -136,6 +140,14 @@ const handleClick = (e) => {
         console.log("Edit this person's information");
     }
 
+    const deleteBtn = e.target.closest('button.delete');
+
+    if (deleteBtn) {
+        const id = deleteBtn.value;
+        handleDeleteBttn(id);
+        console.log('Delete this information');
+    }
+
 };
 
 const handleEditBttn = (id) => {
@@ -145,6 +157,7 @@ const handleEditBttn = (id) => {
 
     const html = `
     <div class="edit_form">
+        <h2>Edit somebody's information</h2>
         <fieldset>
             <label for="firstname">Your firstname</label>
             <input type="text" id="firstname" placeholder="your firstname" required>
@@ -195,9 +208,51 @@ const handleEditBttn = (id) => {
 };
 
 const handleDeleteBttn = (id) => {
+    return new Promise(async function(resolve, reject) {
+        let div = document.createElement('div');
+        div.classList.add('want_to_delete');
 
+        const html = `
+        <div class="delete_item">
+            <h3>Do you want to delete this?</h3>
+            <div>
+                <button class="yes" type="button">Ok</button>
+            </div>
+        </div>
+
+    `;
+
+    div.innerHTML = html;
+    resolve();
+
+    const destroyPopup = async () => {
+        div.classList.remove('open');
+        await wait(1000);
+        div.remove();
+        div = null;
+    }
+
+    if (reject) {
+        const skipButton = document.createElement('button');
+        skipButton.type = "button";
+        skipButton.textContent = "Cancel"
+        skipButton.classList.add('no');
+
+        div.firstElementChild.appendChild(skipButton);
+        skipButton.addEventListener('click', () => {
+            resolve(null);
+            destroyPopup(div);
+        }, { once: true });
+    }
+
+    document.body.appendChild(div);
+    await wait(50);
+    div.classList.add('open');
+    });
 };
 
+
+// Event listener and event delegation.
 addBttn.addEventListener('click', handleAddBttn);
 window.addEventListener('click', handleClick);
 
