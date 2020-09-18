@@ -40,58 +40,20 @@ ul {
     background-color: transparent;
 }
 
-.outer_modal {
-    display: grid;
-    background: hsla(70, 40%, 30%, 0.7);
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
-    top: 0;
-    left: 0;
-    justify-content: center;
-    align-items: center;
-    /* Hide this modal until we need it */
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s;
-}
-
-
-.outer_modal.open {
-    opacity: 1;
-    pointer-events: all;
-}
-
-.inner_modal {
-    max-width: 600px;
-    min-width: 400px;
-    padding: 2rem;
-    border-radius: 5px;
-    min-height: 200px;
-    background: white;
-    transform: translateY(-200%);
-    transition: transform 0.2s;
-}
-
-.outer_modal.open .inner_modal {
-    transform: translateY(0);
-}
-
 .add_form {
     background-color: cadetblue;
-}
-
-fieldset {
-    display: flex;
-    flex-direction: column;
+    border: 24px solid white;
+    border-radius: 24px;
 }
 
 input {
     border-radius: 5px;
     padding: 8px;
+    border: none;
 }
 
-.submitbttn {
+.submitbttn,
+.cancel {
     padding: 8px;
     border-radius: 5px;
     border: none;
@@ -99,4 +61,42 @@ input {
     margin-inline-start: 16px;
     margin-block-start: 32px;
     margin-block-end: 32px;
+}
+
+
+.form {
+	background: hsla(0, 0%, 30%, 0.5);
+	position: fixed;
+	height: 100vh;
+	width: 100vw;
+	transition: all 0.25s;
+	top: 0;
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	pointer-events: none;
+	--opacity: 0;
+    opacity: var(--opacity);
+    
+}
+
+.form fieldset {
+	background: var(--grey);
+	border: 3px solid var(--pink);
+	border-radius: 5px;
+	box-shadow: var(--box-shadow);
+	transition: all 0.2s;
+	--scale: 0.3;
+    transform: scale(var(--scale));
+    display: flex;
+    flex-direction: column;
+}
+
+.form.open {
+	--opacity: 1;
+    pointer-events: all;
+}
+
+.form.open fieldset {
+    --scale: 1;
 }
