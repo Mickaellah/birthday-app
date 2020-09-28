@@ -40,3 +40,29 @@ Once you're finished with the functionality, try to make your app more appealing
 Be creative 🎨
 
 Good Luck
+
+
+
+## Student report.
+
+I only work in this project on Thursday and Friday so I didn't manage to get everything working. I fetch the data from the people.json file and added all the popups for add item, edit and delete buttons. I only have a few functions in my code and only some of them are working in the way I expected them to be. I didn't go really deep in this project because I ama stuck with some input values.
+
+## Code stucture.
+
+I started this code by adding some html elements in the index.html file. The first function in the script.js file is a function that fetch the data from the people.json file. Created some sting html to generate the data into html.
+
+## Improvement.
+
+If I have more time, I would finish all the features that we are asked to do, and style the code nicely.
+
+## Lessons learned.
+
+
+## Biggest challenge.
+
+HOnestly, I didn't meet the most challenging part in this project, but I have a problem about the localstorage, only the list that I have just add that I can see in my local storage not all of them. Not only that but also I have a probless with the popup for editing a person's information.
+
+## More explanation.
+I need more explanation of making the birthday date not looks like a timestamp.
+
+

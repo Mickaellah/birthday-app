@@ -142,3 +142,7 @@ input {
 	--opacity: 1;
     pointer-events: all;
 }
+
+img {
+    width: 124px;
+}
