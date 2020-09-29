@@ -63,6 +63,6 @@ If I have more time, I would finish all the features that we are asked to do, an
 HOnestly, I didn't meet the most challenging part in this project, but I have a problem about the localstorage, only the list that I have just add that I can see in my local storage not all of them. Not only that but also I have a probless with the popup for editing a person's information.
 
 ## More explanation.
-I need more explanation of making the birthday date not looks like a timestamp.
+I need more explanation on making the birthday date not looks like a timestamp.
 
 

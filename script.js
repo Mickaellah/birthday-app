@@ -9,6 +9,13 @@ async function fetchPeople() {
     let result = [];
     result = data;
 
+    let month_arr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+    let date = new Date();
+    let year = date.getFullYear();
+    let month = month_arr[date.getMonth()];
+    let day = date.getDate();
+
     // A functin to display the data into html.
     async function displayPeople() {
         const html = result.map(person => {
@@ -18,9 +25,10 @@ async function fetchPeople() {
                         <img class="profile" src="${person.picture}" alt="profile picture">
                     </li>
                     <li class="list_item">
-                        ${person.firstName} ${person.lastName}
+                        ${person.firstName} ${person.lastName}<br>
+                        <small>Turn on ${month} the </small>
                     </li>
-                    <li class="list_item">${person.birthday}</li>
+                    <li class="list_item">${day} ${month} ${year}</li>
                     <li class="list_item">
                         <button class="edit" id="${person.id}">
                             <svg class="w-6 h-6" width="32px" height="32px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
@@ -36,7 +44,6 @@ async function fetchPeople() {
         });
         personList.innerHTML = html.join('');
     }
-    // personList.addEventListener('editInformation', editLocalStorage);
     displayPeople();
 
     const wait = (ms = 0) => {
@@ -169,7 +176,7 @@ async function fetchPeople() {
             popup.classList.add('form');
 
             // Find the data which you want to edit.
-            const editPerson = result.find(person => person.id === id);
+            const editPerson = result.find(person => person.id !== id);
 
             // HTML for the edit form.
             const html = `
@@ -185,7 +192,7 @@ async function fetchPeople() {
                 </fieldset>
                 <fieldset>
                     <label for="birthday">Your birthday date</label>
-                    <input type="date" id="birthday" name="birthday" value="${editPerson.birthday}">
+                    <input type="date" id="birthday" name="birthday">
                 </fieldset>
                 <fieldset>
                     <label for="picture">Profile picture</label>
@@ -216,17 +223,10 @@ async function fetchPeople() {
 
             popup.addEventListener('submit', (e) => {
                 e.preventDefault();
-                const formEl = e.currentTarget;
-
-                const newBirthday = {
-                    firstname: formEl.firstName.value,
-                    lastname: formEl.lastName.value,
-                    birthday: formEl.birthday.value,
-                    picture: formEl.picture.value,
-                    id: Date.now(),
-                };
-                result.push(newBirthday);
-                resolve(e.currentTarget.remove());
+                editPerson.firstName = popup.firstName.value;
+                editPerson.lastName = popup.lastName.value;
+                editPerson.birthday = popup.birthday.value;
+                editPerson.picture = popup.picture.value;
                 displayPeople();
                 destroyPopup(popup);
                 popup.reset();
@@ -234,7 +234,7 @@ async function fetchPeople() {
             document.body.appendChild(popup);
             await wait(50);
             popup.classList.add('open');
-            personList.addEventListener('editInformation', editLocalStorage);
+            personList.dispatchEvent(new CustomEvent('editInformation'));
         });
     };
 
@@ -243,6 +243,8 @@ async function fetchPeople() {
         return new Promise(async function(resolve, reject) {
             let div = document.createElement('div');
             div.classList.add('want_to_delete');
+
+            const deletePerson = result.filter(person => person.id !== id);
 
             // HTML for the little popup contains the yes button for accepting the deletion and cancel for reusing.
             const html = `
@@ -256,14 +258,13 @@ async function fetchPeople() {
         div.innerHTML = html;
         resolve();
 
-        const destroyPopup = async () => {
-            div.classList.remove('open');
-            await wait(1000);
-            div.remove();
-            div = null;
-        }
+        // const destroyPopup = async () => {
+        //     div.classList.remove('open');
+        //     await wait(1000);
+        //     div.remove();
+        //     div = null;
+        // }
 
-        
         if (reject) {
             const skipButton = document.createElement('button');
             skipButton.type = "button";
@@ -281,13 +282,13 @@ async function fetchPeople() {
                 console.log('Delete me');
                 result = result.filter(person => person.id !== id);
                 displayPeople();
-                destroyPopup();
+                destroyPopup(div);
             }
         });
         document.body.appendChild(div);
         await wait(50);
         div.classList.add('open');
-        personList.addEventListener('editInformation', editLocalStorage);
+        personList.dispatchEvent(new CustomEvent('editInformation'));
         });
     };
 
@@ -311,7 +312,8 @@ async function fetchPeople() {
     // Event listener and event delegation.
     addBttn.addEventListener('click', handleAddBttn);
     window.addEventListener('click', handleClick);
-    personList.addEventListener('editInformation', editLocalStorage); 
+    personList.addEventListener('editInformation', editLocalStorage);
+    personList.dispatchEvent(new CustomEvent('editInformation'));
 
     initLocalStorage();
 }

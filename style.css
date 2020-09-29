@@ -10,25 +10,54 @@ h1 {
     text-shadow: 2px 2px yellow;
 }
 
-h2 {
-    color: indigo;
+h2,
+h3 {
+    color: #fffffe;
     text-transform: uppercase;
+}
+
+svg {
+    margin-block-start: 24px;
 }
 
 .add {
     padding: 16px;
-    background-color: blueviolet;
     border-radius: 5px;
     border: none;
     margin-block-start: 16px;
 }
 
 ul {
+    max-width: 800px;
+    transform: translate(25%);
+    margin: 0;
+    padding: 16px;
     list-style: none;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    background-color: #fec7d7;
+    margin-block-start: 32px;
+    padding: 32px;
+    border-radius: 10px;
 }
+
+li:not(:nth-of-type(1)) {
+    margin-block-start: 48px;
+    font-weight: 700;
+}
+
+li {
+    color: #0e172c;
+}
+
+button {
+    background-color: #0e172c;
+    color: #fffffe;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
 
 .profile {
     border-radius: 50%;
@@ -38,53 +67,44 @@ ul {
 .delete {
     border: none;
     background-color: transparent;
+    margin-block-start: -32px;
 }
 
 .add_form,
-.edit_form {
-    background-color: cadetblue;
-    border: 24px solid white;
+.edit_form,
+.delete_item {
+    background-color: #004643;
     border-radius: 24px;
+    padding: 24px;
 }
 
 input {
     border-radius: 5px;
+    border: 2px solid black;
     padding: 8px;
-    border: none;
 }
 
 .submitbttn,
 .cancel,
-.yes {
+.yes,
+.no {
     padding: 8px;
     border-radius: 5px;
     border: none;
-    background-color: darksalmon;
+    background-color: #f9bc60;
     margin-inline-start: 16px;
     margin-block-start: 32px;
     margin-block-end: 32px;
+    color: #001e1d;
 }
 
-.delete_item:not(.no) {
-    background-color: lightblue;
-    padding: 24px;
-    border-radius: 5px;
-    border: 20px solid black;
+label {
+    color: #abd1c6;
 }
 
 .yes {
     padding-inline: 20px;
 }
-
-
-.no {
-    padding: 8px;
-    border-radius: 5px;
-    border: none;
-    background-color: darksalmon;
-    margin-inline-start: 16px;
-}
-
 
 .form {
 	background: hsla(0, 0%, 30%, 0.5);
@@ -141,6 +161,10 @@ input {
 .want_to_delete.open {
 	--opacity: 1;
     pointer-events: all;
+}
+
+.want_to_delete.open fieldset {
+    --scale: 1;
 }
 
 img {
