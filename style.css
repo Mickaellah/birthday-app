@@ -27,6 +27,15 @@ svg {
     margin-block-start: 16px;
 }
 
+/* .search_by_name {
+
+} */
+
+.filter_by_month {
+    padding: 8px;
+    border-radius: 5px;
+}
+
 ul {
     max-width: 800px;
     transform: translate(25%);

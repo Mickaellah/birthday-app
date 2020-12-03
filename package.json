@@ -1,0 +1,26 @@
+{
+  "name": "birthday-app",
+  "version": "1.0.0",
+  "description": "Hey team! So the final project here will be a birthday list.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mickaellah/birthday-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "browserslist": [
+    "last 1 chrome versions"
+  ],
+  "bugs": {
+    "url": "https://github.com/Mickaellah/birthday-app/issues"
+  },
+  "homepage": "https://github.com/Mickaellah/birthday-app#readme",
+  "dependencies": {
+    "date-fns": "^2.16.1",
+    "waait": "^1.0.5"
+  }
+}

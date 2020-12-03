@@ -11,14 +11,35 @@ async function fetchPeople() {
 
     let month_arr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-    let date = new Date();
-    let year = date.getFullYear();
-    let month = month_arr[date.getMonth()];
-    let day = date.getDate();
+    function getNextBirthday(birthday) {
+        const birthdayDate = new Date(birthday);
+        const today = new Date();
+    
+        // we check when is their next birthday. we check the date with the same month and day as their birthday, and add this year.
+        let nextBirthDay = setFullYear(birthdayDate, today.getFullYear());
+    
+        // if it's today, we return the value
+        if (isToday(nextBirthDay)) {
+            return nextBirthDay;
+        }
+        // if the date is already behind us, we add + 1 to the year
+        if (isPast(nextBirthDay)) {
+            nextBirthDay = addYears(nextBirthDay, 1);
+        }
+        return nextBirthDay;
+    }
 
     // A functin to display the data into html.
     async function displayPeople() {
         const html = result.map(person => {
+        const birthdayDate = new Date(person.birthday);
+        console.log('birthday date', birthdayDate);
+        const today = new Date();
+        const nextBirthDay = getNextBirthday(birthdayDate);
+        // we do the difference between this date and the next
+        let daysToBirthday = differenceInCalendarDays(nextBirthDay, today);
+        console.log(daysToBirthday);
+
             return `
                 <ul class="navigation">
                     <li class="list_item">
@@ -251,7 +272,7 @@ async function fetchPeople() {
             <div class="delete_item">
                 <h3>Do you want to delete this?</h3>
                 <div>
-                    <button class="yes" type="button">Ok</button>
+                    <button class="yes" type="submit">Ok</button>
                 </div>
             </div>
         `;
@@ -277,7 +298,7 @@ async function fetchPeople() {
             });
         }
 
-        window.addEventListener('click', (e) => {
+        window.addEventListener('submit', (e) => {
             if (e.target.matches('button.yes')) {
                 console.log('Delete me');
                 result = result.filter(person => person.id !== id);
