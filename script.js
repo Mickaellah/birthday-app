@@ -1,6 +1,8 @@
 // Grab some elements which are used in this project.
 const personList = document.querySelector('.people');
 const addBttn = document.querySelector('.add');
+const filterInput = document.querySelector('.search_by_name');
+const filterMonth = document.querySelector('.filter_by_month');
 
 // A function that fetch the data.
 async function fetchPeople() {
@@ -9,61 +11,69 @@ async function fetchPeople() {
     let result = [];
     result = data;
 
-    let month_arr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    // Generate the data into html.
+    function htmlGenerator(arr) {
+        return arr.map(item => {
+                const birthdayDate = new Date(item.birthday);
 
-    function getNextBirthday(birthday) {
-        const birthdayDate = new Date(birthday);
-        const today = new Date();
-    
-        // we check when is their next birthday. we check the date with the same month and day as their birthday, and add this year.
-        let nextBirthDay = setFullYear(birthdayDate, today.getFullYear());
-    
-        // if it's today, we return the value
-        if (isToday(nextBirthDay)) {
-            return nextBirthDay;
-        }
-        // if the date is already behind us, we add + 1 to the year
-        if (isPast(nextBirthDay)) {
-            nextBirthDay = addYears(nextBirthDay, 1);
-        }
-        return nextBirthDay;
-    }
+            function ordinary_suffix_of(d) {
+                let j = d % 10,
+                k = d % 100
 
-    // A functin to display the data into html.
-    async function displayPeople() {
-        const html = result.map(person => {
-        const birthdayDate = new Date(person.birthday);
-        console.log('birthday date', birthdayDate);
-        const today = new Date();
-        const nextBirthDay = getNextBirthday(birthdayDate);
-        // we do the difference between this date and the next
-        let daysToBirthday = differenceInCalendarDays(nextBirthDay, today);
-        console.log(daysToBirthday);
+                if (j == 1 && k != 11) {
+                    return d + "st";
+                }
+                if (j == 2 && k != 12) {
+                    return d + "nd";
+                }
+                if (j == 3 && k != 13) {
+                    return d + "rd";
+                }
+                return d + "th";
+            }
+            
+            function getAge(age) {
+                let date = Date.now() - age.getTime();
+                const actualAge = new Date(date);
+                return Math.abs(actualAge.getFullYear() - 1970) + 1;
+            }
+
+            const age = getAge(new Date(item.birthday));
+
+            let day = birthdayDate.getDate();
+            let monthName = birthdayDate.toLocaleString('default', { month: 'long' });
+            let year = birthdayDate.getFullYear();
 
             return `
                 <ul class="navigation">
                     <li class="list_item">
-                        <img class="profile" src="${person.picture}" alt="profile picture">
+                        <img class="profile" src="${item.picture}" alt="profile picture">
                     </li>
                     <li class="list_item">
-                        ${person.firstName} ${person.lastName}<br>
-                        <small>Turn on ${month} the </small>
+                        ${item.firstName} ${item.lastName}<br>
+                        <small>Turn ${age} on the ${ordinary_suffix_of(day)} of ${monthName} </small>
                     </li>
-                    <li class="list_item">${day} ${month} ${year}</li>
+                    <li class="list_item">${ordinary_suffix_of(day)} of ${monthName} ${year}</li>
                     <li class="list_item">
-                        <button class="edit" id="${person.id}">
+                        <button class="edit" id="${item.id}">
                             <svg class="w-6 h-6" width="32px" height="32px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                         </button>
                     </li>
                     <li class="list_item">
-                        <button class="delete" id="${person.id}">
+                        <button class="delete" id="${item.id}">
                             <svg class="w-6 h-6" width="32px" height="32px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                         </button>
                     </li>
                 </ul>
             `;
-        });
-        personList.innerHTML = html.join('');
+        }).join('');
+    }
+
+    // A functin to display the data into html.
+    function displayPeople() {
+        const html = htmlGenerator(result);
+
+        personList.innerHTML = html;
     }
     displayPeople();
 
@@ -101,7 +111,7 @@ async function fetchPeople() {
                     </fieldset>
                     <fieldset>
                         <label for="profile">Avatar image</label>
-                        <input type="url" id="profile" name="picture" placeholder="https://onja.org/wp-content/uploads/2019/08/Clopedia@2x-430x520.jpg">
+                        <input type="text" id="profile" name="picture" placeholder="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWPtccjWVFluoAnrs-ZL_dmwSIt0SC_9CSnw&usqp=CAU">
                     </fieldset>
                     <button class="submitbttn" type="submit">Submit</button>
                 </div>
@@ -145,12 +155,12 @@ async function fetchPeople() {
                 const html = `
                     <ul>
                         <li>
-                            <img class="profile" src="${picture}" alt="profile picture">
+                            <img class="profile" src="${newPerson.picture}" alt="profile picture" />
                         </li>
                         <li>
-                            ${firstname} ${lastname}
+                            ${newPerson.firstName} ${newPerson.lastname}
                         </li>
-                        <li>${birthday}</li>
+                        <li>${newPerson.birthday}</li>
                         <li>
                             <button class="edit">
                                 <svg class="w-6 h-6" width="32px" height="32px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
@@ -163,7 +173,7 @@ async function fetchPeople() {
                         </li>
                     </ul>
                 `;
-                form.innerHTML = html;
+                formEl.innerHTML = html;
                 }, { once: true });
                 document.body.appendChild(popup);
                 await wait(50);
@@ -197,7 +207,8 @@ async function fetchPeople() {
             popup.classList.add('form');
 
             // Find the data which you want to edit.
-            const editPerson = result.find(person => person.id !== id);
+            let editPerson = result.find(person => person.id !== id);
+
 
             // HTML for the edit form.
             const html = `
@@ -225,6 +236,21 @@ async function fetchPeople() {
             popup.insertAdjacentHTML('afterbegin', html);
             destroyPopup(popup);
 
+            popup.addEventListener('submit', (e) => {
+                e.preventDefault();
+                let editPerson = result.find(person => person.id !== id);
+
+                editPerson.firstName = popup.firstName.value;
+                editPerson.lastName = popup.lastName.value;
+                editPerson.birthday = popup.birthday.value;
+                editPerson.picture = popup.picture.value;
+
+                personList.dispatchEvent(new CustomEvent('editInformation'));
+
+                displayPeople(result);
+                destroyPopup(popup);
+            });
+
             // A condition to create a cancel button and handle that button.
             if (reject) {
                 const skipButton = document.createElement('button');
@@ -242,16 +268,7 @@ async function fetchPeople() {
             await wait(50);
             popup.classList.add('open');
 
-            popup.addEventListener('submit', (e) => {
-                e.preventDefault();
-                editPerson.firstName = popup.firstName.value;
-                editPerson.lastName = popup.lastName.value;
-                editPerson.birthday = popup.birthday.value;
-                editPerson.picture = popup.picture.value;
-                displayPeople();
-                destroyPopup(popup);
-                popup.reset();
-            });
+            // popup.reset();
             document.body.appendChild(popup);
             await wait(50);
             popup.classList.add('open');
@@ -272,19 +289,12 @@ async function fetchPeople() {
             <div class="delete_item">
                 <h3>Do you want to delete this?</h3>
                 <div>
-                    <button class="yes" type="submit">Ok</button>
+                    <button class="yes" type="button">Ok</button>
                 </div>
             </div>
-        `;
-        div.innerHTML = html;
-        resolve();
-
-        // const destroyPopup = async () => {
-        //     div.classList.remove('open');
-        //     await wait(1000);
-        //     div.remove();
-        //     div = null;
-        // }
+            `;
+            div.innerHTML = html;
+            resolve();
 
         if (reject) {
             const skipButton = document.createElement('button');
@@ -299,7 +309,7 @@ async function fetchPeople() {
         }
 
         window.addEventListener('submit', (e) => {
-            if (e.target.matches('button.yes')) {
+            if (e.target.matches('button button.yes')) {
                 console.log('Delete me');
                 result = result.filter(person => person.id !== id);
                 displayPeople();
@@ -317,7 +327,6 @@ async function fetchPeople() {
     const initLocalStorage = () => {
         const stringForm = localStorage.getItem('result');
         const listItem = JSON.parse(stringForm);
-        console.log(listItem);
         if (listItem) {
             result = listItem;
             personList.dispatchEvent(new CustomEvent('editInformation'));
@@ -329,6 +338,27 @@ async function fetchPeople() {
     const editLocalStorage = () => {
         localStorage.setItem('result', JSON.stringify(result));
     }
+
+    // events for the search input and the select in index.html page.
+    filterInput.addEventListener('input', function (e) {
+        let filteredArr = result.filter(name => {
+            return name.firstName.toLowerCase().includes(e.target.value.toLowerCase());
+        });
+        let names = htmlGenerator(filteredArr);
+        personList.innerHTML = names;
+    });
+
+    filterMonth.addEventListener('change', function (e) {
+        let filteredMonth = result.filter(month => {
+            let birthDate = new Date(month.birthday);
+            let monthName = birthDate.toLocaleString('default', { month: 'long' });
+
+            return monthName == e.target.value;
+        })
+
+        let month = htmlGenerator(filteredMonth);
+        personList.innerHTML = month;
+    })
 
     // Event listener and event delegation.
     addBttn.addEventListener('click', handleAddBttn);
