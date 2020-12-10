@@ -202,43 +202,44 @@ async function fetchPeople() {
 
     // Handle the edit buttons.
     const handleEditBttn = (id) => {
-        return new Promise(async function(resolve, reject) {
+        // Find the data which you want to edit.
+        let editPerson = result.find(person => person.id !== id);
+
+        return new Promise(function(resolve, reject) {
             let popup = document.createElement('popup');
             popup.classList.add('form');
-
-            // Find the data which you want to edit.
-            let editPerson = result.find(person => person.id !== id);
 
 
             // HTML for the edit form.
             const html = `
-            <div class="edit_form">
-                <h2>Edit somebody's information</h2>
-                <fieldset>
-                    <label for="firstname">Your firstname</label>
-                    <input type="text" id="firstname" name="firstname" value="${editPerson.firstName}">
-                </fieldset>
-                <fieldset>
-                    <label for="lastname">Your lastname</label>
-                    <input type="text" id="lastname" name="lastname" value="${editPerson.lastName}">
-                </fieldset>
-                <fieldset>
-                    <label for="birthday">Your birthday date</label>
-                    <input type="date" id="birthday" name="birthday">
-                </fieldset>
-                <fieldset>
-                    <label for="picture">Profile picture</label>
-                    <input type="url" id="picture" name="picture" value="${editPerson.picture}">
-                </fieldset>
-                <button class="submitbttn" type="submit">Submit</button>
-            </div>
+                <div class="edit_form">
+                    <h2>Edit somebody's information</h2>
+                    <fieldset>
+                        <label for="picture">Profile picture</label>
+                        <input type="url" id="picture" name="picture" value="${editPerson.picture}">
+                    </fieldset>
+                    <fieldset>
+                        <label for="firstname">Your firstname</label>
+                        <input type="text" id="firstname" name="firstname" value="${editPerson.firstName}">
+                    </fieldset>
+                    <fieldset>
+                        <label for="lastname">Your lastname</label>
+                        <input type="text" id="lastname" name="lastname" value="${editPerson.lastName}">
+                    </fieldset>
+                    <fieldset>
+                        <label for="birthday">Your birthday date</label>
+                        <input type="date" id="birthday" name="birthday">
+                    </fieldset>
+                    <button class="submitbttn" type="submit">Submit</button>
+                </div>
             `;
+            // popup.innerHTML = html;
             popup.insertAdjacentHTML('afterbegin', html);
-            destroyPopup(popup);
 
             popup.addEventListener('submit', (e) => {
                 e.preventDefault();
-                let editPerson = result.find(person => person.id !== id);
+                console.log(e.target);
+                // let editPerson = result.find(person => person.id !== id);
 
                 editPerson.firstName = popup.firstName.value;
                 editPerson.lastName = popup.lastName.value;
@@ -246,10 +247,16 @@ async function fetchPeople() {
                 editPerson.picture = popup.picture.value;
 
                 personList.dispatchEvent(new CustomEvent('editInformation'));
-
-                displayPeople(result);
+                resolve(null);
+                displayPeople(editPerson);
                 destroyPopup(popup);
-            });
+
+                console.log(editPerson);
+
+            }, { once: true });
+
+            // resolve();
+            destroyPopup(popup);
 
             // A condition to create a cancel button and handle that button.
             if (reject) {
@@ -261,18 +268,11 @@ async function fetchPeople() {
                 skipButton.addEventListener('click', () => {
                     resolve(null);
                     destroyPopup(popup);
-                });
+                }, { once: true });
             }
 
             document.body.appendChild(popup);
-            await wait(50);
             popup.classList.add('open');
-
-            // popup.reset();
-            document.body.appendChild(popup);
-            await wait(50);
-            popup.classList.add('open');
-            personList.dispatchEvent(new CustomEvent('editInformation'));
         });
     };
 

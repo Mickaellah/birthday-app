@@ -26,6 +26,10 @@ svg {
     margin-block-start: 24px;
 }
 
+button {
+    cursor: pointer;
+}
+
 .add {
     padding: 16px;
     border-radius: 5px;
