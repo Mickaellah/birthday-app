@@ -1,0 +1,184 @@
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+h1 {
+    font-size: 32px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px yellow;
+}
+
+h2,
+h3 {
+    color: #fffffe;
+    text-transform: uppercase;
+}
+
+svg {
+    margin-block-start: 24px;
+}
+
+.add {
+    padding: 16px;
+    border-radius: 5px;
+    border: none;
+    margin-block-start: 16px;
+}
+
+/* .search_by_name {
+
+} */
+
+.filter_by_month {
+    padding: 8px;
+    border-radius: 5px;
+}
+
+ul {
+    max-width: 800px;
+    transform: translate(25%);
+    margin: 0;
+    padding: 16px;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #fec7d7;
+    margin-block-start: 32px;
+    padding: 32px;
+    border-radius: 10px;
+}
+
+li:not(:nth-of-type(1)) {
+    margin-block-start: 48px;
+    font-weight: 700;
+}
+
+li {
+    color: #0e172c;
+}
+
+button {
+    background-color: #0e172c;
+    color: #fffffe;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+
+.profile {
+    border-radius: 50%;
+}
+
+.edit,
+.delete {
+    border: none;
+    background-color: transparent;
+    margin-block-start: -32px;
+}
+
+.add_form,
+.edit_form,
+.delete_item {
+    background-color: #004643;
+    border-radius: 24px;
+    padding: 24px;
+}
+
+input {
+    border-radius: 5px;
+    border: 2px solid black;
+    padding: 8px;
+}
+
+.submitbttn,
+.cancel,
+.yes,
+.no {
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    background-color: #f9bc60;
+    margin-inline-start: 16px;
+    margin-block-start: 32px;
+    margin-block-end: 32px;
+    color: #001e1d;
+}
+
+label {
+    color: #abd1c6;
+}
+
+.yes {
+    padding-inline: 20px;
+}
+
+.form {
+	background: hsla(0, 0%, 30%, 0.5);
+	position: fixed;
+	height: 100vh;
+	width: 100vw;
+	transition: all 0.25s;
+	top: 0;
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	pointer-events: none;
+	--opacity: 0;
+    opacity: var(--opacity);
+}
+
+.form fieldset {
+	background: var(--grey);
+	border: 3px solid var(--pink);
+	border-radius: 5px;
+	box-shadow: var(--box-shadow);
+	transition: all 0.2s;
+	--scale: 0.3;
+    transform: scale(var(--scale));
+    display: flex;
+    flex-direction: column;
+}
+
+.form.open {
+	--opacity: 1;
+    pointer-events: all;
+}
+
+.form.open fieldset {
+    --scale: 1;
+}
+
+.want_to_delete {
+	background: hsla(0, 0%, 30%, 0.5);
+	position: fixed;
+	height: 100vh;
+	width: 100vw;
+	transition: all 0.25s;
+	top: 0;
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	pointer-events: none;
+	--opacity: 0;
+    opacity: var(--opacity);
+    
+}
+
+.want_to_delete.open {
+	--opacity: 1;
+    pointer-events: all;
+}
+
+.want_to_delete.open fieldset {
+    --scale: 1;
+}
+
+img {
+    width: 124px;
+}
+
+
+/*# sourceMappingURL=/style.e308ff8e.css.map */
