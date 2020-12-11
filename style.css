@@ -22,6 +22,24 @@ h3 {
     text-transform: uppercase;
 }
 
+.inputs {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.inputs > input {
+    width: 40%;
+    background-color: aliceblue;
+    border: none;
+}
+
+.inputs > select {
+    width: 40%;
+    background-color: aliceblue;
+    border: none;
+}
+
 svg {
     margin-block-start: 24px;
 }
@@ -36,10 +54,6 @@ button {
     border: none;
     margin-block-start: 16px;
 }
-
-/* .search_by_name {
-
-} */
 
 .filter_by_month {
     padding: 8px;
@@ -59,7 +73,10 @@ ul {
     border-radius: 10px;
 }
 
-
+.age {
+    margin-block-start: 100px;
+    margin-inline-start: -200px;
+}
 
 
 li:not(:nth-of-type(1)) {
@@ -113,6 +130,10 @@ button {
     text-align: center;
 }
 
+.list_items {
+    text-transform: capitalize;
+} 
+
 
 .profile {
     width: 70px;
@@ -129,11 +150,31 @@ button {
 }
 
 .add_form,
-.edit_form,
-.delete_item {
+.edit_form {
     background-color: #004643;
     border-radius: 24px;
     padding: 24px;
+}
+
+.delete_item {
+    background-color: aliceblue;
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.delete_item > h3 {
+    color: black;
+}
+
+.yes,
+.no {
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+}
+
+.no {
+    margin-block-start: 16px;
 }
 
 input {
@@ -143,9 +184,7 @@ input {
 }
 
 .submitbttn,
-.cancel,
-.yes,
-.no {
+.cancel {
     padding: 8px;
     border-radius: 5px;
     border: none;

@@ -14,7 +14,7 @@ async function fetchPeople() {
     // Generate the data into html.
     function htmlGenerator(arr) {
         return arr.map(item => {
-                const birthdayDate = new Date(item.birthday);
+            const birthdayDate = new Date(item.birthday);
 
             function ordinary_suffix_of(d) {
                 let j = d % 10,
@@ -42,18 +42,28 @@ async function fetchPeople() {
 
             let day = birthdayDate.getDate();
             let monthName = birthdayDate.toLocaleString('default', { month: 'long' });
-            let year = birthdayDate.getFullYear();
+
+            const today = new Date();
+
+            // To get the number of days untill your next birthday.
+            if (today > birthdayDate) {
+                birthdayDate.setFullYear(today.getFullYear() + 1);
+            }
+
+            const difference_in_days = Math.floor((birthdayDate - today) / (1000*60*60*24));
 
             return `
-                <ul class="navigation">
+                <ul data-id="${item.id}" class="navigation">
                     <li class="list_item">
                         <img class="profile" src="${item.picture}" alt="profile picture">
                     </li>
-                    <li class="list_item">
-                        ${item.firstName} ${item.lastName}<br>
-                        <small>Turn ${age} on the ${ordinary_suffix_of(day)} of ${monthName} </small>
+                    <li class="list_item" data-value="${item.firstName}">
+                        ${item.firstName}
                     </li>
-                    <li class="list_item">${ordinary_suffix_of(day)} of ${monthName} ${year}</li>
+                    <li class="list_item" data-value="${item.lastName}">${item.lastName}</li>
+                    <small class="age">Turn ${age} on the ${ordinary_suffix_of(day)} of ${monthName}. </small>
+                    <li class="list_item"> In ${difference_in_days} days</li>
+
                     <li class="list_item">
                         <button class="edit" id="${item.id}">
                             <svg class="w-6 h-6" width="32px" height="32px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
@@ -136,7 +146,6 @@ async function fetchPeople() {
             // An event listener for the submit button in the form.
             popup.addEventListener('submit', (e) => {
                 e.preventDefault();
-                resolve(e.target.input);
                 const formEl = e.target;
                 const newPerson = {
                     firstName: formEl.firstName.value,
@@ -186,28 +195,29 @@ async function fetchPeople() {
         const editBtn = e.target.closest('button.edit');
 
         if (editBtn) {
-            const id = Number(editBtn.value);
-            handleEditBttn(id);
-            console.log("Edit this person's information");
+            const list = e.target.closest('ul');
+            const editItem = list.dataset.id;
+            handleEditBttn(editItem);
         }
 
         const deleteBtn = e.target.closest('button.delete');
 
         if (deleteBtn) {
-            const id = Number(deleteBtn.value);
-            handleDeleteBttn(id);
-            console.log('Delete this information');
+            const list = e.target.closest('ul');
+            const deleteItem = list.dataset.id;
+            handleDeleteBttn(deleteItem);
         }
     };
 
     // Handle the edit buttons.
     const handleEditBttn = (id) => {
         // Find the data which you want to edit.
-        let editPerson = result.find(person => person.id !== id);
+        let editPerson = result.find(person => person.id === id);
 
         return new Promise(function(resolve, reject) {
-            let popup = document.createElement('popup');
+            let popup = document.createElement('form');
             popup.classList.add('form');
+            popup.classList.add('open');
 
 
             // HTML for the edit form.
@@ -215,48 +225,42 @@ async function fetchPeople() {
                 <div class="edit_form">
                     <h2>Edit somebody's information</h2>
                     <fieldset>
-                        <label for="picture">Profile picture</label>
-                        <input type="url" id="picture" name="picture" value="${editPerson.picture}">
-                    </fieldset>
-                    <fieldset>
                         <label for="firstname">Your firstname</label>
-                        <input type="text" id="firstname" name="firstname" value="${editPerson.firstName}">
+                        <input type="text" id="firstname" value="${editPerson.firstName}">
                     </fieldset>
                     <fieldset>
                         <label for="lastname">Your lastname</label>
-                        <input type="text" id="lastname" name="lastname" value="${editPerson.lastName}">
+                        <input type="text" id="lastname" value="${editPerson.lastName}">
                     </fieldset>
                     <fieldset>
                         <label for="birthday">Your birthday date</label>
-                        <input type="date" id="birthday" name="birthday">
+                        <input type="date" id="birthday"">
                     </fieldset>
-                    <button class="submitbttn" type="submit">Submit</button>
+                    <fieldset>
+                        <label for="picture">Profile picture</label>
+                        <input type="url" id="picture" value="${editPerson.picture}">
+                    </fieldset>
+                    <button class="submitbttn" name="submit" type="submit">Submit</button>
                 </div>
             `;
-            // popup.innerHTML = html;
+
             popup.insertAdjacentHTML('afterbegin', html);
 
             popup.addEventListener('submit', (e) => {
                 e.preventDefault();
-                console.log(e.target);
-                // let editPerson = result.find(person => person.id !== id);
 
-                editPerson.firstName = popup.firstName.value;
-                editPerson.lastName = popup.lastName.value;
+                editPerson.firstName = popup.firstname.value;
+                editPerson.lastName = popup.lastname.value;
                 editPerson.birthday = popup.birthday.value;
-                editPerson.picture = popup.picture.value;
+                editPerson.picture = popup.picture.value; 
 
-                personList.dispatchEvent(new CustomEvent('editInformation'));
-                resolve(null);
+
                 displayPeople(editPerson);
                 destroyPopup(popup);
-
-                console.log(editPerson);
+                personList.dispatchEvent(new CustomEvent('editInformation'));
 
             }, { once: true });
 
-            // resolve();
-            destroyPopup(popup);
 
             // A condition to create a cancel button and handle that button.
             if (reject) {
@@ -278,11 +282,11 @@ async function fetchPeople() {
 
     // Handle delete button.
     const handleDeleteBttn = (id) => {
+
         return new Promise(async function(resolve, reject) {
             let div = document.createElement('div');
             div.classList.add('want_to_delete');
 
-            const deletePerson = result.filter(person => person.id !== id);
 
             // HTML for the little popup contains the yes button for accepting the deletion and cancel for reusing.
             const html = `
@@ -294,7 +298,6 @@ async function fetchPeople() {
             </div>
             `;
             div.innerHTML = html;
-            resolve();
 
         if (reject) {
             const skipButton = document.createElement('button');
@@ -308,16 +311,16 @@ async function fetchPeople() {
             });
         }
 
-        window.addEventListener('submit', (e) => {
-            if (e.target.matches('button button.yes')) {
-                console.log('Delete me');
-                result = result.filter(person => person.id !== id);
-                displayPeople();
+        div.addEventListener('click', (e) => {
+            const filteredArr = result.filter(person => person.id != id);
+            let deleteBttn = document.querySelector('button.yes');
+            if (deleteBttn) {
+                result = filteredArr;
+                displayPeople(result);
                 destroyPopup(div);
             }
         });
         document.body.appendChild(div);
-        await wait(50);
         div.classList.add('open');
         personList.dispatchEvent(new CustomEvent('editInformation'));
         });
