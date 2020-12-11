@@ -1,4 +1,4 @@
-body {
+body > * {
     max-width: 1000px;
     margin-inline-start: auto;
     margin-inline-end: auto;
@@ -22,22 +22,29 @@ h3 {
     text-transform: uppercase;
 }
 
+fieldset {
+    border: none;
+}
+
+.filter_name,
+.filter_month {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+}
+
+.filter_name > input,
+.filter_month > select
+ {
+    background-color: aliceblue;
+    border: none;
+    margin-block-start: 16px;
+}
+
 .inputs {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-}
-
-.inputs > input {
-    width: 40%;
-    background-color: aliceblue;
-    border: none;
-}
-
-.inputs > select {
-    width: 40%;
-    background-color: aliceblue;
-    border: none;
 }
 
 svg {
@@ -154,6 +161,8 @@ button {
     background-color: #004643;
     border-radius: 24px;
     padding: 24px;
+    max-width: 64%;
+    
 }
 
 .delete_item {
@@ -203,38 +212,41 @@ label {
     padding-inline: 20px;
 }
 
+.form,
+.want_to_delete {
+    max-width: 100%;
+}
+
 .form {
-	background: hsla(0, 0%, 30%, 0.5);
-	position: fixed;
-	height: 100vh;
-	width: 100vw;
-	transition: all 0.25s;
-	top: 0;
-	display: grid;
-	justify-content: center;
-	align-items: center;
-	pointer-events: none;
-	--opacity: 0;
+    background: hsla(0, 0%, 30%, 0.5);
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    transition: all 0.25s;
+    top: 0;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    --opacity: 0;
     opacity: var(--opacity);
 }
-
 .form fieldset {
-	background: var(--grey);
-	border: 3px solid var(--pink);
-	border-radius: 5px;
-	box-shadow: var(--box-shadow);
-	transition: all 0.2s;
-	--scale: 0.3;
-    transform: scale(var(--scale));
     display: flex;
     flex-direction: column;
+    background: var(--grey);
+    border: 3px solid var(--pink);
+    border-radius: 5px;
+    box-shadow: var(--box-shadow);
+    transition: all 0.2s;
+    --scale: 0.3;
+    transform: scale(var(--scale));
 }
-
 .form.open {
-	--opacity: 1;
+    --opacity: 1;
     pointer-events: all;
 }
-
+    
 .form.open fieldset {
     --scale: 1;
 }
@@ -299,5 +311,4 @@ label {
     .delete_bttn {
         text-align: center;
     }
-    
 }
