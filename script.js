@@ -57,22 +57,22 @@ async function fetchPeople() {
                     <li class="list_item">
                         <img class="profile" src="${item.picture}" alt="profile picture">
                     </li>
-                    <li class="list_item" data-value="${item.firstName}">
-                        ${item.firstName}
+                    <li class="list_item names" data-value="${item.firstName}">
+                        <h4>${item.firstName} ${item.lastName}</h4>
+                        <p class="birthday">Turn <small class="age">${age}</small> on ${monthName} ${ordinary_suffix_of(day)}. </p>
                     </li>
-                    <li class="list_item" data-value="${item.lastName}">${item.lastName}</li>
-                    <small class="age">Turn ${age} on the ${ordinary_suffix_of(day)} of ${monthName}. </small>
-                    <li class="list_item"> In ${difference_in_days} days</li>
+                    <li class="list_item"> 
+                        <p class="next_birthday">In ${difference_in_days} days</p>
 
-                    <li class="list_item">
-                        <button class="edit" id="${item.id}">
-                            <svg class="w-6 h-6" width="32px" height="32px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                        </button>
-                    </li>
-                    <li class="list_item">
-                        <button class="delete" id="${item.id}">
-                            <svg class="w-6 h-6" width="32px" height="32px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                        </button>
+                        <div>
+                            <button class="edit" id="${item.id}">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z"/></svg>
+                            </button>
+                            <button class="delete" id="${item.id}">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="pink" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4h-3.5z"/></svg>
+                            </button>
+                        </div>
+
                     </li>
                 </ul>
             `;

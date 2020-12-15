@@ -1,7 +1,8 @@
-body > * {
-    max-width: 1000px;
+body {
+    max-width: 800px;
     margin-inline-start: auto;
     margin-inline-end: auto;
+    background-color: #d8eefe;
 }
 
 header {
@@ -28,17 +29,22 @@ fieldset {
 
 .filter_name,
 .filter_month {
+    padding: 0;
     display: flex;
     flex-direction: column;
-    width: 40%;
 }
 
-.filter_name > input,
-.filter_month > select
- {
+.search_by_name,
+.filter_by_month {
+    padding: 16px;
     background-color: aliceblue;
     border: none;
     margin-block-start: 16px;
+    border-radius: 5px;
+}
+
+.filter_by_month {
+    max-width: 200px;
 }
 
 .inputs {
@@ -59,12 +65,11 @@ button {
     padding: 16px;
     border-radius: 5px;
     border: none;
-    margin-block-start: 16px;
-}
-
-.filter_by_month {
-    padding: 8px;
-    border-radius: 5px;
+    background-color: #ef4565;
+    margin-block-start: 35px;
+    color: #fffffe;
+    text-transform: uppercase;
+    font-weight: 700;
 }
 
 ul {
@@ -74,79 +79,25 @@ ul {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    background-color: #fec7d7;
+    background-color: #ffffff;
     margin-block-start: 32px;
     padding: 32px;
     border-radius: 10px;
 }
 
-.age {
-    margin-block-start: 100px;
-    margin-inline-start: -200px;
-}
-
-
-li:not(:nth-of-type(1)) {
-    margin-block-start: 48px;
-    font-weight: 700;
-}
-
-li {
-    color: #0e172c;
-}
-
-button {
-    background-color: #0e172c;
-    color: #fffffe;
-    text-transform: uppercase;
-    font-weight: 700;
-}
-
-.navigation_container {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    background: none;
-    padding: 0;
-}
-
-.list_items {
-    text-transform: uppercase;
-    font-size: 18px;
-    font-weight: 700;
-    text-shadow: 1px 1px 1px pink;
-}
-
-.profiles {
-    margin-block-start: 48px;
-    text-align: center;
-}
-
-.name {
-    text-align: center;
-}
-
-.birthday {
-    text-align: end;
-}
-
-.edit {
-    text-align: end;
-}
-
-.delete_bttn {
-    text-align: center;
-}
-
-.list_items {
-    text-transform: capitalize;
-} 
-
-
 .profile {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    margin-block-start: 24px;
+    border-radius: 8px;
+}
+
+.birthday,
+.next_birthday {
+    color: #5f6c7b;
+}
+
+.age {
+    color: red;
+    font-weight: 700;
+    font-size: 16px;
 }
 
 .edit,
