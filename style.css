@@ -3,6 +3,7 @@ body {
     margin-inline-start: auto;
     margin-inline-end: auto;
     background-color: #d8eefe;
+    font-size: 18px;
 }
 
 header {
@@ -14,7 +15,7 @@ header {
 h1 {
     font-size: 32px;
     text-transform: uppercase;
-    text-shadow: 2px 2px yellow;
+    color: #5f6c7b;
 }
 
 h2,
@@ -37,7 +38,7 @@ fieldset {
 .search_by_name,
 .filter_by_month {
     padding: 16px;
-    background-color: aliceblue;
+    background-color: white;
     border: none;
     margin-block-start: 16px;
     border-radius: 5px;
@@ -51,6 +52,16 @@ fieldset {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+label {
+    color: #5f6c7b;
+    font-weight: 500;
+}
+
+::placeholder {
+    color: #5f6c7b;
+    font-weight: 500;
 }
 
 svg {
@@ -153,10 +164,6 @@ input {
     margin-block-start: 32px;
     margin-block-end: 32px;
     color: #001e1d;
-}
-
-label {
-    color: #abd1c6;
 }
 
 .yes {
