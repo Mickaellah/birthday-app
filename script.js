@@ -9,7 +9,12 @@ async function fetchPeople() {
     const response = await fetch('./people.json');
     const data = await response.json();
     let result = [];
-    result = data;
+
+    const sortedPeople = data.sort(function(a, b) {
+        return new Date(a.birthday).getMonth() + 1 - new Date(b.birthday).getMonth() + 1;
+    });
+
+   result = sortedPeople;
 
     // Generate the data into html.
     function htmlGenerator(arr) {
