@@ -124,8 +124,10 @@ const addBttn = document.querySelector('.add');
 const filterInput = document.querySelector('.search_by_name');
 const filterMonth = document.querySelector('.filter_by_month'); // A function that fetch the data.
 
+const API_URL = "https://gist.githubusercontent.com/Pinois/e1c72b75917985dc77f5c808e876b67f/raw/b17e08696906abeaac8bc260f57738eaa3f6abb1/birthdayPeople.json";
+
 async function fetchPeople() {
-  const response = await fetch('./people.json');
+  const response = await fetch(API_URL);
   const data = await response.json();
   let result = [];
   result = data; // Generate the data into html.
@@ -511,7 +513,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54734" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61738" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
