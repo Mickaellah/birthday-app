@@ -189,7 +189,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./fonts\\Rubik-Bold.woff2":[["Rubik-Bold.dc898c8b.woff2","fonts/Rubik-Bold.woff2"],"fonts/Rubik-Bold.woff2"],"./fonts\\Rubik-Bold.woff":[["Rubik-Bold.387f1d1b.woff","fonts/Rubik-Bold.woff"],"fonts/Rubik-Bold.woff"],"./fonts\\Rubik-Medium.woff2":[["Rubik-Medium.1a2d45f0.woff2","fonts/Rubik-Medium.woff2"],"fonts/Rubik-Medium.woff2"],"./fonts\\Rubik-Medium.woff":[["Rubik-Medium.6af22582.woff","fonts/Rubik-Medium.woff"],"fonts/Rubik-Medium.woff"],"_css_loader":"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;

@@ -1,4 +1,19 @@
+@font-face {
+    font-family: "Rubik bold";
+    src: url('/Rubik-Bold.dc898c8b.woff2') format("woff2"),
+        url('/Rubik-Bold.387f1d1b.woff') format("woff");
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: "Rubik medium";
+    src: url('/Rubik-Medium.1a2d45f0.woff2') format("woff2"),
+        url('/Rubik-Medium.6af22582.woff') format("woff");
+    font-weight: 500;
+}
+
 body {
+    font-family: "Rubik medium";
     background-color: #d8eefe;
     font-size: 18px;
 }
@@ -16,8 +31,9 @@ header {
 }
 
 h1 {
-    font-size: 32px;
-    text-transform: uppercase;
+    font-family: "Rubik bold";
+    font-size: 48px;
+    text-transform: capitalize;
     color: #5f6c7b;
 }
 
@@ -25,6 +41,11 @@ h2,
 h3 {
     color: #fffffe;
     text-transform: uppercase;
+}
+
+h4 {
+    font-size: 24px;
+    margin-block-end: 0;
 }
 
 fieldset {
@@ -75,6 +96,10 @@ button {
     cursor: pointer;
 }
 
+.buttons {
+    margin-block-start: 32px;
+}
+
 .add {
     padding: 16px;
     border-radius: 5px;
@@ -82,7 +107,6 @@ button {
     background-color: #ef4565;
     margin-block-start: 35px;
     color: #fffffe;
-    text-transform: uppercase;
     font-weight: 700;
 }
 
