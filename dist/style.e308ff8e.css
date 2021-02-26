@@ -147,7 +147,7 @@ ul {
 
 .add_form,
 .edit_form,
-.delete_item {
+.delete_items {
     background-color: #ffffff;
     padding-block: 24px;
     padding-inline: 48px;
@@ -178,7 +178,8 @@ input {
     padding: 8px;
 }
 
-.submitbttn {
+.submitbttn,
+.delete_item {
     padding-block: 10px;
     padding-inline: 16px;
     border-radius: 5px;
@@ -196,7 +197,6 @@ input {
     border-radius: 5px;
     background-color: #ffffff;
     margin-inline-start: 16px;
-    margin-block-start: 32px;
     margin-block-end: 32px;
     color: #000000;
 
@@ -206,11 +206,11 @@ input {
     color: #094067;
 }
 
-.delete_item .submitbttn {
+.delete_items .delete_item {
     padding-inline: 30px;
 }
 
-.delete_item .cancel {
+.delete_items .cancel {
     margin-block-start: 0;
 }
 

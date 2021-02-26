@@ -287,7 +287,6 @@ async function fetchPeople() {
 
     // Handle delete button.
     const handleDeleteBttn = (id) => {
-
         return new Promise(async function(resolve, reject) {
             let div = document.createElement('div');
             div.classList.add('form');
@@ -295,10 +294,10 @@ async function fetchPeople() {
 
             // HTML for the little popup contains the yes button for accepting the deletion and cancel for reusing.
             const html = `
-            <div class="delete_item">
+            <div class="delete_items">
                 <h3 class="delete_header">Do you want to delete this?</h3>
                 <div>
-                    <button class="submitbttn" type="button">Ok</button>
+                    <button class="delete_item" type="button">Delete</button>
                 </div>
             </div>
             `;
@@ -318,7 +317,7 @@ async function fetchPeople() {
 
         div.addEventListener('click', (e) => {
             const filteredArr = result.filter(person => person.id != id);
-            let deleteBttn = document.querySelector('button.yes');
+            let deleteBttn = document.querySelector('button.delete_item');
             if (deleteBttn) {
                 result = filteredArr;
                 displayPeople(result);

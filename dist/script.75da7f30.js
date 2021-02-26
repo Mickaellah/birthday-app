@@ -128,7 +128,10 @@ async function fetchPeople() {
   const response = await fetch('./people.json');
   const data = await response.json();
   let result = [];
-  result = data; // Generate the data into html.
+  const sortedPeople = data.sort(function (a, b) {
+    return new Date(a.birthday).getMonth() + 1 - new Date(b.birthday).getMonth() + 1;
+  });
+  result = sortedPeople; // Generate the data into html.
 
   function htmlGenerator(arr) {
     return arr.map(item => {
@@ -400,10 +403,10 @@ async function fetchPeople() {
       div.classList.add('form'); // HTML for the little popup contains the yes button for accepting the deletion and cancel for reusing.
 
       const html = `
-            <div class="delete_item">
+            <div class="delete_items">
                 <h3 class="delete_header">Do you want to delete this?</h3>
                 <div>
-                    <button class="submitbttn" type="button">Ok</button>
+                    <button class="delete_item" type="button">Delete</button>
                 </div>
             </div>
             `;
@@ -423,7 +426,7 @@ async function fetchPeople() {
 
       div.addEventListener('click', e => {
         const filteredArr = result.filter(person => person.id != id);
-        let deleteBttn = document.querySelector('button.yes');
+        let deleteBttn = document.querySelector('button.delete_item');
 
         if (deleteBttn) {
           result = filteredArr;
@@ -511,7 +514,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61738" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55423" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
