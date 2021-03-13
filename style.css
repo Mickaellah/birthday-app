@@ -44,7 +44,7 @@ h3 {
 }
 
 h4 {
-    font-size: 24px;
+    font-size: 36px;
     margin-block-end: 0;
 }
 
@@ -139,12 +139,13 @@ ul {
 .birthday,
 .next_birthday {
     color: #5f6c7b;
+    font-size: 24px;
 }
 
 .age {
     color: red;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 24px;
 }
 
 .edit,
