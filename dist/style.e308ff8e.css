@@ -32,9 +32,9 @@ header {
 
 h1 {
     font-family: "Rubik bold";
-    font-size: 48px;
+    font-size: 64px;
     text-transform: capitalize;
-    color: #5f6c7b;
+    color: #094067;
 }
 
 h2,
@@ -44,7 +44,7 @@ h3 {
 }
 
 h4 {
-    font-size: 24px;
+    font-size: 36px;
     margin-block-end: 0;
 }
 
@@ -79,12 +79,19 @@ fieldset {
 }
 
 label {
-    color: #5f6c7b;
+    color: #094067;
+    font-weight: 500;
+}
+
+input,
+select {
+    color: #094067;
+    font-size: 18px;
     font-weight: 500;
 }
 
 ::placeholder {
-    color: #5f6c7b;
+    color: #094067;
     font-weight: 500;
 }
 
@@ -98,6 +105,7 @@ button {
 
 .buttons {
     margin-block-start: 32px;
+    margin-inline-start: 28px;
 }
 
 .add {
@@ -107,7 +115,8 @@ button {
     background-color: #ef4565;
     margin-block-start: 35px;
     color: #fffffe;
-    font-weight: 700;
+    font-weight: 500;
+    font-size: 18px;
 }
 
 ul {
@@ -130,12 +139,13 @@ ul {
 .birthday,
 .next_birthday {
     color: #5f6c7b;
+    font-size: 24px;
 }
 
 .age {
     color: red;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 24px;
 }
 
 .edit,
@@ -153,7 +163,6 @@ ul {
     padding-inline: 48px;
     max-width: 70%;
     color: #094067;
-    transform: translateX(20%);
 }
 
 .edit_form {

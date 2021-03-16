@@ -128,12 +128,13 @@ ul {
     justify-content: space-around;
     background-color: #ffffff;
     margin-block-start: 32px;
-    padding: 32px;
+    padding: 22px;
     border-radius: 10px;
 }
 
 .profile {
-    border-radius: 8px;
+    border-radius: 5px;
+    margin-block-start: 16px;
 }
 
 .birthday,
@@ -146,6 +147,10 @@ ul {
     color: red;
     font-weight: 700;
     font-size: 24px;
+}
+
+.list_item--buttons {
+    margin-block-start: 32px;
 }
 
 .edit,
@@ -285,10 +290,7 @@ input {
     .name {
         text-align: center;
     }
-    
-    .birthday {
-        text-align: end;
-    }
+
     
     .edit {
         text-align: end;

@@ -66,7 +66,7 @@ async function fetchPeople() {
                         <h4>${item.firstName} ${item.lastName}</h4>
                         <p class="birthday">Turn <small class="age">${age}</small> on ${monthName} ${ordinary_suffix_of(day)}. </p>
                     </li>
-                    <li class="list_item"> 
+                    <li class="list_item list_item--buttons"> 
                         <p class="next_birthday">In ${difference_in_days} days</p>
 
                         <div class="buttons">
