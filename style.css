@@ -275,13 +275,6 @@ input {
 }
 
 @media (min-width: 700px) {
-    /* .navigation_container {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        background: none;
-        padding: 0;
-    } */
-
     .inputs {
         display: flex;
         flex-direction: row;
