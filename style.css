@@ -59,6 +59,14 @@ fieldset {
     flex-direction: column;
 }
 
+.search_by_name {
+    width: 170px;
+}
+
+.filter_month {
+    margin-block-start: 32px;
+}
+
 .search_by_name,
 .filter_by_month {
     padding: 16px;
@@ -70,12 +78,6 @@ fieldset {
 
 .filter_by_month {
     max-width: 200px;
-}
-
-.inputs {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
 }
 
 label {
@@ -117,19 +119,6 @@ button {
     color: #fffffe;
     font-weight: 500;
     font-size: 18px;
-}
-
-ul {
-    margin: 0;
-    padding: 16px;
-    list-style: none;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    background-color: #ffffff;
-    margin-block-start: 32px;
-    padding: 22px;
-    border-radius: 10px;
 }
 
 .profile {
@@ -267,12 +256,57 @@ input {
     --scale: 1;
 }
 
+.navigation {
+    margin: 0;
+    padding: 16px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: #ffffff;
+    margin-block-start: 32px;
+    padding: 22px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.buttons {
+    margin-inline-start: 0;
+}
+
 @media (min-width: 700px) {
-    .navigation_container {
+    /* .navigation_container {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         background: none;
         padding: 0;
+    } */
+
+    .inputs {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .search_by_name {
+        width: 100%;
+    }
+    
+    .filter_month {
+        margin-block-start: 0px;
+    }
+
+    .navigation {
+        margin: 0;
+        padding: 16px;
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        background-color: #ffffff;
+        margin-block-start: 32px;
+        padding: 22px;
+        border-radius: 10px;
     }
     
     .list_items {
@@ -291,7 +325,10 @@ input {
         text-align: center;
     }
 
-    
+    .buttons {
+        margin-inline-start: 16px;
+    }
+
     .edit {
         text-align: end;
     }
