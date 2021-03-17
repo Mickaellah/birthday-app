@@ -11,7 +11,7 @@ async function fetchPeople() {
     let result = [];
 
     const sortedPeople = data.sort(function(a, b) {
-        return new Date(a.birthday).getMonth() + 1 - new Date(b.birthday).getMonth() + 1;
+        return new Date(a.birthday).getMonth() - new Date(b.birthday).getMonth();
     });
 
    result = sortedPeople;
@@ -49,13 +49,23 @@ async function fetchPeople() {
             let monthName = birthdayDate.toLocaleString('default', { month: 'long' });
 
             const today = new Date();
+            let myDate = new Date(item.birthday);
+            // let birthdayYear = myDate.getFullYear();
+            let birthdayMonth = myDate.getMonth() + 1;
+            let birtdayDay = myDate.getDate();
+
+            const todayDate = today.getFullYear();
+            const birthDayDates = new Date(todayDate, birthdayMonth - 1, birtdayDay );
+            let oneDay = 1000 * 60 * 60 * 24;
+            const getTheDate = birthDayDates.getTime() - today.getTime();
+            const dayLeft = Math.ceil(getTheDate / oneDay);
 
             // To get the number of days untill your next birthday.
             if (today > birthdayDate) {
                 birthdayDate.setFullYear(today.getFullYear() + 1);
             }
 
-            const difference_in_days = Math.floor((birthdayDate - today) / (1000*60*60*24));
+            // const difference_in_days = Math.floor((birthdayDate - today) / (1000*60*60*24));
 
             return `
                 <ul data-id="${item.id}" class="navigation">
@@ -67,7 +77,7 @@ async function fetchPeople() {
                         <p class="birthday">Turn <small class="age">${age}</small> on ${monthName} ${ordinary_suffix_of(day)}. </p>
                     </li>
                     <li class="list_item list_item--buttons"> 
-                        <p class="next_birthday">In ${difference_in_days} days</p>
+                        <p class="next_birthday">${dayLeft < 0 ?  dayLeft * -1 + " " + "days ago" : dayLeft <= 1 ? "in" + " " + dayLeft + "day" : "in" + " " + dayLeft + "days"}</p>
 
                         <div class="buttons">
                             <button class="edit" id="${item.id}">
@@ -219,7 +229,7 @@ async function fetchPeople() {
     // Handle the edit buttons.
     const handleEditBttn = (id) => {
         // Find the data which you want to edit.
-        let editPerson = result.find(person => person.id === id);
+        let editPerson = result.find(person => person.id == id);
 
         return new Promise(function(resolve, reject) {
             let popup = document.createElement('form');
@@ -233,19 +243,19 @@ async function fetchPeople() {
                     <h2 class="edit_header">Edit ${editPerson.firstName} ${editPerson.lastName}</h2>
                     <fieldset>
                         <label for="firstname">Your firstname</label>
-                        <input type="text" id="firstname" value="${editPerson.firstName}">
+                        <input type="text" name="firstname" id="firstname" value="${editPerson.firstName}">
                     </fieldset>
                     <fieldset>
                         <label for="lastname">Your lastname</label>
-                        <input type="text" id="lastname" value="${editPerson.lastName}">
+                        <input type="text" name="lastname" id="lastname" value="${editPerson.lastName}">
                     </fieldset>
                     <fieldset>
                         <label for="birthday">Your birthday date</label>
-                        <input type="date" id="birthday"">
+                        <input type="date" name="birthday" id="birthday"">
                     </fieldset>
                     <fieldset>
                         <label for="picture">Profile picture</label>
-                        <input type="url" id="picture" value="${editPerson.picture}">
+                        <input type="url" id="picture" name="picture" value="${editPerson.picture}">
                     </fieldset>
                     <button class="submitbttn" name="submit" type="submit">Save changes</button>
                 </div>
