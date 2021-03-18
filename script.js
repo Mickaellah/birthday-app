@@ -2,7 +2,7 @@
 const personList = document.querySelector('.people');
 const addBttn = document.querySelector('.add');
 const filterInput = document.querySelector('.search_by_name');
-const filterMonth = document.querySelector('.filter_by_month');
+const filterByMonth = document.querySelector('.filter_by_month');
 
 // A function that fetch the data.
 async function fetchPeople() {
@@ -10,11 +10,11 @@ async function fetchPeople() {
     const data = await response.json();
     let result = [];
 
-    const sortedPeople = data.sort(function(a, b) {
+    result = data.sort(function(a, b) {
         return new Date(a.birthday).getMonth() - new Date(b.birthday).getMonth();
     });
+    // result = sortedPeople;
 
-   result = sortedPeople;
 
     // Generate the data into html.
     function htmlGenerator(arr) {
@@ -50,7 +50,6 @@ async function fetchPeople() {
 
             const today = new Date();
             let myDate = new Date(item.birthday);
-            // let birthdayYear = myDate.getFullYear();
             let birthdayMonth = myDate.getMonth() + 1;
             let birtdayDay = myDate.getDate();
 
@@ -97,7 +96,6 @@ async function fetchPeople() {
     // A functin to display the data into html.
     function displayPeople() {
         const html = htmlGenerator(result);
-
         personList.innerHTML = html;
     }
     displayPeople();
@@ -363,25 +361,26 @@ async function fetchPeople() {
         localStorage.setItem('result', JSON.stringify(result));
     }
 
+    const filterPeople = () => {
+        const nameFilter = filterInput.value.toLowerCase()
+        const monthFilter = Number(filterByMonth.value)
+
+        const filteredPeople = result.filter(person => (nameFilter
+             ? person.lastName.toLowerCase().includes(nameFilter) 
+             : true)
+              && (monthFilter
+                 ? new Date(person.birthday).getMonth() + 1 === monthFilter 
+                 : true))
+        personList.innerHTML = htmlGenerator(filteredPeople)
+    }
+
     // events for the search input and the select in index.html page.
     filterInput.addEventListener('input', function (e) {
-        let filteredArr = result.filter(name => {
-            return name.firstName.toLowerCase().includes(e.target.value.toLowerCase());
-        });
-        let names = htmlGenerator(filteredArr);
-        personList.innerHTML = names;
+        filterPeople();
     });
 
-    filterMonth.addEventListener('change', function (e) {
-        let filteredMonth = result.filter(month => {
-            let birthDate = new Date(month.birthday);
-            let monthName = birthDate.toLocaleString('default', { month: 'long' });
-
-            return monthName == e.target.value;
-        })
-
-        let month = htmlGenerator(filteredMonth);
-        personList.innerHTML = month;
+    filterByMonth.addEventListener('input', function (e) {
+        filterPeople();
     })
 
     // Event listener and event delegation.
