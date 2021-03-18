@@ -65,8 +65,6 @@ async function fetchPeople() {
                 birthdayDate.setFullYear(today.getFullYear() + 1);
             }
 
-            // const difference_in_days = Math.floor((birthdayDate - today) / (1000*60*60*24));
-
             return `
                 <ul data-id="${item.id}" class="navigation">
                     <li class="list_item">
@@ -77,7 +75,7 @@ async function fetchPeople() {
                         <p class="birthday">Turn <small class="age">${age}</small> on ${monthName} ${ordinary_suffix_of(day)}. </p>
                     </li>
                     <li class="list_item list_item--buttons"> 
-                        <p class="next_birthday">${dayLeft < 0 ?  dayLeft * -1 + " " + "days ago" : dayLeft <= 1 ? "in" + " " + dayLeft + "day" : "in" + " " + dayLeft + "days"}</p>
+                        <p class="next_birthday">${dayLeft < 0 ?  dayLeft * -1 + " " + "days ago" : dayLeft <= 1 ? "in" + " " + dayLeft + "day" : "in" + " " + dayLeft + " " + "days"}</p>
 
                         <div class="buttons">
                             <button class="edit" id="${item.id}">
@@ -134,7 +132,7 @@ async function fetchPeople() {
                     </fieldset>
                     <fieldset>
                         <label for="birthday">Birthday</label>
-                        <input type="date" id="birthday" name="birthday" placeholder="enter your birthday" required>
+                        <input type="date" id="birthday" max="${new Date().toLocaleDateString()}" name="birthday" placeholder="enter your birthday" required>
                     </fieldset>
                     <fieldset>
                         <label for="profile">Avatar image</label>
@@ -163,6 +161,9 @@ async function fetchPeople() {
             // An event listener for the submit button in the form.
             popup.addEventListener('submit', (e) => {
                 e.preventDefault();
+
+                // document.querySelector('input[type="date"]').max = new Date().toISOString().slice(0, 10);
+
                 const formEl = e.target;
                 const newPerson = {
                     firstName: formEl.firstName.value,
@@ -233,6 +234,10 @@ async function fetchPeople() {
 
         return new Promise(function(resolve, reject) {
             let popup = document.createElement('form');
+
+            let dateInput = new Date().toISOString().slice(0, 10);
+            let formatDate = new Date(editPerson.birthday).toISOString().slice(0, 10);
+
             popup.classList.add('form');
             popup.classList.add('open');
 
@@ -251,7 +256,7 @@ async function fetchPeople() {
                     </fieldset>
                     <fieldset>
                         <label for="birthday">Your birthday date</label>
-                        <input type="date" name="birthday" id="birthday"">
+                        <input type="date" value="${formatDate}" name="birthdayDate" max="${dateInput}" id="birthday">
                     </fieldset>
                     <fieldset>
                         <label for="picture">Profile picture</label>

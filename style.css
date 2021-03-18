@@ -274,6 +274,20 @@ input {
     margin-inline-start: 0;
 }
 
+.profile {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.names {
+    text-align: justify;
+} 
+
+.list_item--buttons {
+    text-align: right;
+}
+
 @media (min-width: 700px) {
     .inputs {
         display: flex;
