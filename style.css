@@ -18,6 +18,10 @@ body {
     font-size: 18px;
 }
 
+body {
+    padding: 32px;
+}
+
 body > * {
     max-width: 800px;
     margin-inline-start: auto;
@@ -155,7 +159,6 @@ button {
     background-color: #ffffff;
     padding-block: 24px;
     padding-inline: 48px;
-    max-width: 70%;
     color: #094067;
 }
 
@@ -179,6 +182,10 @@ input {
     border-radius: 5px;
     border: 2px solid black;
     padding: 8px;
+}
+
+.add {
+    padding-inline: 40px;
 }
 
 .submitbttn,
@@ -262,11 +269,18 @@ input {
     list-style: none;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     background-color: #ffffff;
     margin-block-start: 32px;
     padding: 22px;
     border-radius: 10px;
+    text-align: center;
+}
+
+.names {
+    text-align: center;
+}
+
+.list_item--buttons {
     text-align: center;
 }
 
@@ -280,19 +294,20 @@ input {
     object-fit: cover;
 }
 
-.names {
-    text-align: justify;
-} 
-
-.list_item--buttons {
-    text-align: right;
-}
-
 @media (min-width: 700px) {
     .inputs {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+    }
+
+    .filter_by_month {
+        padding-inline: 32px;
+        margin-inline-end: -24px;
+    }
+
+    .add {
+        margin-block-start: 38px;
     }
 
     .search_by_name {
@@ -330,6 +345,14 @@ input {
     
     .name {
         text-align: center;
+    }
+
+    .names {
+        text-align: justify;
+    } 
+    
+    .list_item--buttons {
+        text-align: right;
     }
 
     .buttons {

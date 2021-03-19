@@ -7,18 +7,27 @@ const filterByMonth = document.querySelector('.filter_by_month');
 // A function that fetch the data.
 async function fetchPeople() {
     const response = await fetch('./people.json');
-    const data = await response.json();
-    let result = [];
+    let data = await response.json();
 
-    result = data.sort(function(a, b) {
-        return new Date(a.birthday).getMonth() - new Date(b.birthday).getMonth();
-    });
-    // result = sortedPeople;
-
+    function calculateBirthdayDate(item) {
+        let birthTime = new Date(item.birthday);
+        let birthDate = birthTime.getDate();
+        let birthMonth = birthTime.getMonth();
+        let today = new Date();
+        let thisYear = today.getFullYear();
+        let birthdayYear = new Date(thisYear, birthMonth, birthDate);
+        let oneDay = 1000 * 60 * 60 * 24;
+        let numberOfDaysLeft = Math.ceil((birthdayYear.getTime() - today.getTime()) / oneDay);
+        let birthdayInDays = numberOfDaysLeft < 0 ? 365 + numberOfDaysLeft : numberOfDaysLeft
+        return birthdayInDays;
+    }
 
     // Generate the data into html.
     function htmlGenerator(arr) {
-        return arr.map(item => {
+        const sortBirthday = arr.sort((a, b) => {
+            return calculateBirthdayDate(a) - calculateBirthdayDate(b)
+        })
+        return sortBirthday.map(item => {
             const birthdayDate = new Date(item.birthday);
 
             function ordinary_suffix_of(d) {
@@ -44,7 +53,6 @@ async function fetchPeople() {
             }
 
             const age = getAge(new Date(item.birthday));
-
             let day = birthdayDate.getDate();
             let monthName = birthdayDate.toLocaleString('default', { month: 'long' });
 
@@ -56,8 +64,10 @@ async function fetchPeople() {
             const todayDate = today.getFullYear();
             const birthDayDates = new Date(todayDate, birthdayMonth - 1, birtdayDay );
             let oneDay = 1000 * 60 * 60 * 24;
-            const getTheDate = birthDayDates.getTime() - today.getTime();
-            const dayLeft = Math.ceil(getTheDate / oneDay);
+            const getTheDate = Math.ceil((birthDayDates.getTime() - today.getTime() / oneDay));
+
+            const dayLeft = calculateBirthdayDate(item);
+            const futureBirthday = getTheDate > 1 ? "days" : "day";
 
             // To get the number of days untill your next birthday.
             if (today > birthdayDate) {
@@ -74,7 +84,7 @@ async function fetchPeople() {
                         <p class="birthday">Turn <small class="age">${age}</small> on ${monthName} ${ordinary_suffix_of(day)}. </p>
                     </li>
                     <li class="list_item list_item--buttons"> 
-                        <p class="next_birthday">${dayLeft < 0 ?  dayLeft * -1 + " " + "days ago" : dayLeft <= 1 ? "in" + " " + dayLeft + "day" : "in" + " " + dayLeft + " " + "days"}</p>
+                        <p class="next_birthday">In ${dayLeft} ${futureBirthday}</p>
 
                         <div class="buttons">
                             <button class="edit" id="${item.id}">
@@ -95,7 +105,7 @@ async function fetchPeople() {
 
     // A functin to display the data into html.
     function displayPeople() {
-        const html = htmlGenerator(result);
+        const html = htmlGenerator(data);
         personList.innerHTML = html;
     }
     displayPeople();
@@ -159,8 +169,6 @@ async function fetchPeople() {
             // An event listener for the submit button in the form.
             popup.addEventListener('submit', (e) => {
                 e.preventDefault();
-
-                // document.querySelector('input[type="date"]').max = new Date().toISOString().slice(0, 10);
 
                 const formEl = e.target;
                 const newPerson = {
@@ -228,7 +236,7 @@ async function fetchPeople() {
     // Handle the edit buttons.
     const handleEditBttn = (id) => {
         // Find the data which you want to edit.
-        let editPerson = result.find(person => person.id == id);
+        let editPerson = data.find(person => person.id == id);
 
         return new Promise(function(resolve, reject) {
             let popup = document.createElement('form');
@@ -331,11 +339,11 @@ async function fetchPeople() {
         }
 
         div.addEventListener('click', (e) => {
-            const filteredArr = result.filter(person => person.id != id);
+            const filteredArr = data.filter(person => person.id != id);
             let deleteBttn = document.querySelector('button.delete_item');
             if (deleteBttn) {
-                result = filteredArr;
-                displayPeople(result);
+                data = filteredArr;
+                displayPeople(data);
                 destroyPopup(div);
             }
         });
@@ -350,7 +358,7 @@ async function fetchPeople() {
         const stringForm = localStorage.getItem('result');
         const listItem = JSON.parse(stringForm);
         if (listItem) {
-            result = listItem;
+            data = listItem;
             personList.dispatchEvent(new CustomEvent('editInformation'));
         } else {
             result = [];
@@ -358,14 +366,14 @@ async function fetchPeople() {
     };
 
     const editLocalStorage = () => {
-        localStorage.setItem('result', JSON.stringify(result));
+        localStorage.setItem('result', JSON.stringify(data));
     }
 
     const filterPeople = () => {
         const nameFilter = filterInput.value.toLowerCase()
         const monthFilter = Number(filterByMonth.value)
 
-        const filteredPeople = result.filter(person => (nameFilter
+        const filteredPeople = data.filter(person => (nameFilter
              ? person.lastName.toLowerCase().includes(nameFilter) 
              : true)
               && (monthFilter
