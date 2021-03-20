@@ -374,8 +374,7 @@ async function fetchPeople() {
         const monthFilter = Number(filterByMonth.value)
 
         const filteredPeople = data.filter(person => (nameFilter
-             ? person.lastName.toLowerCase().includes(nameFilter) 
-             : true)
+             ? person.lastName.toLowerCase().includes(nameFilter) || person.firstName.toLowerCase().includes(nameFilter) : true)
               && (monthFilter
                  ? new Date(person.birthday).getMonth() + 1 === monthFilter 
                  : true))
