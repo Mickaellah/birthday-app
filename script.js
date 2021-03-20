@@ -178,7 +178,7 @@ async function fetchPeople() {
                     picture: formEl.picture.value,
                     id: Date.now()
                 };
-                result.push(newPerson);
+                data.push(newPerson);
                 personList.dispatchEvent(new CustomEvent('editInformation'));
                 displayPeople();
                 destroyPopup(popup);
