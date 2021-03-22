@@ -126,6 +126,8 @@ async function fetchPeople() {
             let popup = document.createElement('form');
             popup.classList.add('form');
 
+            const dateInput = new Date().toISOString().slice(0, 10);
+
             // HTML for the form that we need for adding some new people.
             const html = `
                 <div class="add_form">
@@ -140,7 +142,7 @@ async function fetchPeople() {
                     </fieldset>
                     <fieldset>
                         <label for="birthday">Birthday</label>
-                        <input type="date" id="birthday" max="${new Date().toLocaleDateString()}" name="birthday" placeholder="enter your birthday" required>
+                        <input type="date" id="birthday" max="${dateInput}" name="birthday" placeholder="enter your birthday" required>
                     </fieldset>
                     <fieldset>
                         <label for="profile">Avatar image</label>
