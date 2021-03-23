@@ -55,6 +55,10 @@ h4 {
     margin-block-start: 0;
 }
 
+button {
+    outline: none;
+}
+
 .inputs {
     margin-block-start: 42px;
 }
@@ -91,17 +95,6 @@ fieldset {
     margin-block-start: 13px;
     padding-block: 15px;
     padding-inline-start: 20px;
-}
-
-select::-ms-expand {
-    display: none;
-}
-
-.filter_month::after {
-    content: "›";
-    position: absolute;
-    right: -16px;
-    transform: rotate(90deg);
 }
 
 label {
@@ -280,12 +273,19 @@ input {
     border: none;
     background-color: white;
     margin-inline-start: 162%;
+    outline: none;
 }
 
 .close_button > svg {
     width: 29px;
     height: 29px;
 }
+
+.delete,
+.edit {
+    outline: none;
+}
+
 
 .delete_header {
     color: #094067;
