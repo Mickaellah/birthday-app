@@ -133,11 +133,11 @@ async function fetchPeople() {
                 <div class="add_form">
                     <h2 class="add_header">Add your name and your birthday</h2>
                     <fieldset>
-                        <label for="firstname">First name</label>
+                        <label for="firstname">Firstname</label>
                         <input type="text" id="firstname" name="firstName" placeholder="enter your firstname" required>
                     </fieldset>
                     <fieldset>
-                        <label for="lastname">Last name</label>
+                        <label for="lastname">Lastname</label>
                         <input type="text" id="lastname" name="lastName" placeholder="enter your lastname" required>
                     </fieldset>
                     <fieldset>
@@ -148,7 +148,7 @@ async function fetchPeople() {
                         <label for="profile">Avatar image</label>
                         <input type="text" id="profile" name="picture" placeholder="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWPtccjWVFluoAnrs-ZL_dmwSIt0SC_9CSnw&usqp=CAU">
                     </fieldset>
-                    <button class="submitbttn" type="submit">Submit</button>
+                    <button class="submitbttn" type="submit">Submit person</button>
                 </div>
             `;
             popup.innerHTML = html;
@@ -253,17 +253,22 @@ async function fetchPeople() {
             // HTML for the edit form.
             const html = `
                 <div class="edit_form">
+                    <div>
+                        <button class="close_button">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                        </button>
+                    </div>
                     <h2 class="edit_header">Edit ${editPerson.firstName} ${editPerson.lastName}</h2>
                     <fieldset>
-                        <label for="firstname">Your firstname</label>
+                        <label for="firstname">Firstname</label>
                         <input type="text" name="firstname" id="firstname" value="${editPerson.firstName}">
                     </fieldset>
                     <fieldset>
-                        <label for="lastname">Your lastname</label>
+                        <label for="lastname">Lastname</label>
                         <input type="text" name="lastname" id="lastname" value="${editPerson.lastName}">
                     </fieldset>
                     <fieldset>
-                        <label for="birthday">Your birthday date</label>
+                        <label for="birthday">Birthday date</label>
                         <input type="date" value="${formatDate}" name="birthdayDate" max="${dateInput}" id="birthday">
                     </fieldset>
                     <fieldset>
@@ -320,6 +325,9 @@ async function fetchPeople() {
             // HTML for the little popup contains the yes button for accepting the deletion and cancel for reusing.
             const html = `
             <div class="delete_items">
+                <button class="close_button">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                </button>
                 <h3 class="delete_header">Do you want to delete this?</h3>
                 <div>
                     <button class="delete_item" type="button">Delete</button>
@@ -332,7 +340,7 @@ async function fetchPeople() {
             const skipButton = document.createElement('button');
             skipButton.type = "button";
             skipButton.textContent = "Cancel"
-            skipButton.classList.add('cancel');
+            skipButton.classList.add('Cancel');
             div.firstElementChild.appendChild(skipButton);
             skipButton.addEventListener('click', () => {
                 resolve(null);

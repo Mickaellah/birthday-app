@@ -16,14 +16,11 @@ body {
     font-family: "Rubik medium";
     background-color: #d8eefe;
     font-size: 18px;
+    margin: 0;
 }
 
-body {
-    padding: 32px;
-}
-
-body > * {
-    max-width: 800px;
+body > *:not(.form) {
+    max-width: 779px;
     margin-inline-start: auto;
     margin-inline-end: auto;
 }
@@ -34,11 +31,16 @@ header {
     justify-content: space-between;
 }
 
+header {
+    margin-block-start: 63px;
+}
+
 h1 {
     font-family: "Rubik bold";
     font-size: 64px;
     text-transform: capitalize;
     color: #094067;
+    margin: 0;
 }
 
 h2,
@@ -50,6 +52,11 @@ h3 {
 h4 {
     font-size: 36px;
     margin-block-end: 0;
+    margin-block-start: 0;
+}
+
+.inputs {
+    margin-block-start: 42px;
 }
 
 fieldset {
@@ -64,24 +71,37 @@ fieldset {
 }
 
 .search_by_name {
-    width: 170px;
+    padding-inline-end: 48px;
 }
 
 .filter_month {
     margin-block-start: 32px;
+
+}
+
+.filter_by_month {
+    padding-inline-end: 101px;
 }
 
 .search_by_name,
 .filter_by_month {
-    padding: 16px;
     background-color: white;
     border: none;
-    margin-block-start: 16px;
     border-radius: 5px;
+    margin-block-start: 13px;
+    padding-block: 15px;
+    padding-inline-start: 20px;
 }
 
-.filter_by_month {
-    max-width: 200px;
+select::-ms-expand {
+    display: none;
+}
+
+.filter_month::after {
+    content: "›";
+    position: absolute;
+    right: -16px;
+    transform: rotate(90deg);
 }
 
 label {
@@ -115,7 +135,9 @@ button {
 }
 
 .add {
-    padding: 16px;
+    padding-inline-start: 18px;
+    padding-inline-end: 11px;
+    padding-block: 15px;
     border-radius: 5px;
     border: none;
     background-color: #ef4565;
@@ -127,7 +149,13 @@ button {
 
 .profile {
     border-radius: 5px;
-    margin-block-start: 16px;
+    width: 92px;
+    height: 94px;
+    object-fit: cover;
+}
+
+.birthday {
+    margin: 0;
 }
 
 .birthday,
@@ -136,14 +164,14 @@ button {
     font-size: 24px;
 }
 
+.next_birthday {
+    margin-block-start: 0;
+}
+
 .age {
     color: red;
     font-weight: 700;
     font-size: 24px;
-}
-
-.list_item--buttons {
-    margin-block-start: 32px;
 }
 
 .edit,
@@ -157,19 +185,39 @@ button {
 .edit_form,
 .delete_items {
     background-color: #ffffff;
-    padding-block: 24px;
-    padding-inline: 48px;
+    padding-block-start: 53px;
+    padding-block-end: 189px;
+    padding-inline-start: 264px;
+    padding-inline-end: 298px;
+    margin-block-start: 161px;
     color: #094067;
 }
 
-.edit_form {
-    padding-inline: 100px;
+.add_form > h2,
+.edit_form > h2,
+.delete_items > h2 {
+    margin-block-start: 38px;
+}
+
+.add_form > fieldset,
+.edit_form > fieldset,
+.delete_items > fieldset {
+    padding: 0;
+}
+
+.add_form > fieldset > label,
+.edit_form > fieldset > label {
+    margin-block-start: 11px;
 }
 
 .add_form > fieldset > input,
 .edit_form > fieldset > input {
     border: none;
     background-color: #d8eefe;
+    margin-block-start: 8px;
+    padding-inline-start: 20px;
+    max-width: 264px;
+    padding-block: 15px;
 }
 
 .add_header,
@@ -181,66 +229,86 @@ button {
 input {
     border-radius: 5px;
     border: 2px solid black;
-    padding: 8px;
 }
 
-.add {
-    padding-inline: 40px;
-}
-
-.submitbttn,
-.delete_item {
-    padding-block: 10px;
-    padding-inline: 16px;
+.submitbttn {
+    padding-block: 15px;
+    padding-inline-start: 18px;
+    padding-inline-end: 16px;
     border-radius: 5px;
     border: none;
-    background-color: #ef4565;
-    margin-inline-start: 16px;
-    margin-block-start: 32px;
+    background-color: #ef4565; 
+    margin-block-start: 49px;
     margin-block-end: 32px;
     color: #ffffff;
+    font-size: 18px;
+}
+
+.delete_item {
+    padding-block: 15px;
+    padding-inline: 53px;
+    border-radius: 5px;
+    border: none;
+    background-color: #ef4565; 
+    margin-block-start: 49px;
+    margin-block-end: 32px;
+    color: #ffffff;
+    font-size: 18px;
 }
 
 .cancel {
-    padding-block: 8px;
-    padding-inline: 16px;
+    padding-block: 15px;
+    padding-inline: 49px;
     border-radius: 5px;
     background-color: #ffffff;
-    margin-inline-start: 16px;
-    margin-block-end: 32px;
-    color: #000000;
+    margin-inline-start: 20px;
+    color: #5F6C7B;
+    font-size: 18px;
 
+}
+
+.Cancel {
+    padding-block: 15px;
+    padding-inline: 49px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #5F6C7B;
+    font-size: 18px;
+}
+
+.close_button {
+    border: none;
+    background-color: white;
+    margin-inline-start: 162%;
+}
+
+.close_button > svg {
+    width: 29px;
+    height: 29px;
 }
 
 .delete_header {
     color: #094067;
 }
 
-.delete_items .delete_item {
-    padding-inline: 30px;
-}
-
-.delete_items .cancel {
-    margin-block-start: 0;
-}
-
-.form {
-    max-width: 100%;
-}
-
 .form {
     background: hsla(0, 0%, 30%, 0.5);
     position: fixed;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     transition: all 0.25s;
     top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     display: grid;
     justify-content: center;
     align-items: center;
     pointer-events: none;
     --opacity: 0;
     opacity: var(--opacity);
+    overflow: scroll;
+    
 }
 
 .form fieldset {
@@ -276,7 +344,16 @@ input {
     text-align: center;
 }
 
+.navigation:nth-child(1) {
+    margin-block-start: 47px;
+}
+
+.navigation:not(:nth-child(1)) {
+    margin-block-start: 32px;
+}
+
 .names {
+    margin-block: 24px;
     text-align: center;
 }
 
@@ -288,30 +365,18 @@ input {
     margin-inline-start: 0;
 }
 
-.profile {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-}
-
 @media (min-width: 700px) {
     .inputs {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        gap: 35px;
     }
-
-    .filter_by_month {
-        padding-inline: 32px;
-        margin-inline-end: -24px;
+    .profile {
+        margin-inline-start: 22px;
     }
 
     .add {
         margin-block-start: 38px;
-    }
-
-    .search_by_name {
-        width: 100%;
     }
     
     .filter_month {
@@ -324,11 +389,15 @@ input {
         list-style: none;
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
         background-color: #ffffff;
-        margin-block-start: 32px;
         padding: 22px;
+        gap: 39px;
         border-radius: 10px;
+    }
+
+    .names {
+        text-align: justify;
+        margin-inline-end: auto;
     }
     
     .list_items {
@@ -348,12 +417,8 @@ input {
     }
 
     .names {
-        text-align: justify;
+        margin-block-start: 13px;
     } 
-    
-    .list_item--buttons {
-        text-align: right;
-    }
 
     .buttons {
         margin-inline-start: 16px;
