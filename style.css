@@ -149,7 +149,8 @@ button {
 .add {
     padding-inline-start: 18px;
     padding-inline-end: 11px;
-    padding-block: 15px;
+    padding-block-start: 15px;
+    padding-block-end: 14px;
     border-radius: 5px;
     border: none;
     background-color: #ef4565;
@@ -398,7 +399,7 @@ input {
     }
 
     .add {
-        margin-block-start: 38px;
+        margin-block-start: 34px;
     }
     
     .filter_month {
