@@ -153,6 +153,8 @@ button {
 .buttons {
     margin-block-start: 32px;
     margin-inline-start: 28px;
+    margin-inline-start: 0;
+    display: flex;
 }
 
 .add {
@@ -383,26 +385,6 @@ input {
     margin-block-start: 32px;
 }
 
-.birthday_date {
-    position: relative;
-}
-
-.birthday_date::-webkit-inner-spin-button,
-.birthday_date::-webkit-calendar-picker-indicator {
-    display: none;
-    -webkit-appearance: none;
-}
-
-.birthday_date::after {
-    content: "›";
-	height: 6px;
-	width: 12px;
-	position: absolute;
-    right: 10px;
-	transition: all 0.3s linear;
-    transform: rotate(90deg);
-}
-
 .names {
     margin-block: 24px;
     text-align: center;
@@ -410,10 +392,6 @@ input {
 
 .list_item--buttons {
     text-align: center;
-}
-
-.buttons {
-    margin-inline-start: 0;
 }
 
 @media (max-width: 600px) {
@@ -502,10 +480,6 @@ input {
     .names {
         margin-block-start: 13px;
     } 
-
-    .buttons {
-        margin-inline-start: 45px;
-    }
 
     .edit {
         text-align: end;
