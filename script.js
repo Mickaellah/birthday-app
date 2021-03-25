@@ -131,7 +131,10 @@ async function fetchPeople() {
             // HTML for the form that we need for adding some new people.
             const html = `
                 <div class="add_form">
-                    <h2 class="add_header">Add your name and your birthday</h2>
+                    <button class="close_button">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                    </button>
+                    <h2 class="add_header">Add a new person</h2>
                     <fieldset>
                         <label for="firstname">Firstname</label>
                         <input type="text" id="firstname" name="firstName" placeholder="enter your firstname" required>
@@ -142,7 +145,7 @@ async function fetchPeople() {
                     </fieldset>
                     <fieldset>
                         <label for="birthday">Birthday</label>
-                        <input type="date" id="birthday" max="${dateInput}" name="birthday" placeholder="enter your birthday" required>
+                        <input class="birthday_date" type="date" id="birthday" max="${dateInput}" name="birthday" placeholder="enter your birthday" required>
                     </fieldset>
                     <fieldset>
                         <label for="profile">Avatar image</label>
@@ -269,7 +272,7 @@ async function fetchPeople() {
                     </fieldset>
                     <fieldset>
                         <label for="birthday">Birthday date</label>
-                        <input type="date" value="${formatDate}" name="birthdayDate" max="${dateInput}" id="birthday">
+                        <input class="birthday_date" type="date" value="${formatDate}" name="birthdayDate" max="${dateInput}" id="birthday">
                     </fieldset>
                     <fieldset>
                         <label for="picture">Profile picture</label>
@@ -328,7 +331,7 @@ async function fetchPeople() {
                 <button class="close_button">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
                 </button>
-                <h3 class="delete_header">Do you want to delete this?</h3>
+                <h3 class="delete_header">Want to delete this?</h3>
                 <div>
                     <button class="delete_item" type="button">Delete</button>
                 </div>
