@@ -431,6 +431,10 @@ input {
         margin-block-start: 0px;
     }
 
+    .buttons {
+        margin-inline-start: 45px;
+    }
+
     .navigation {
         margin: 0;
         padding: 16px;
