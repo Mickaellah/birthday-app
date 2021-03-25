@@ -154,7 +154,6 @@ button {
     margin-block-start: 32px;
     margin-inline-start: 28px;
     margin-inline-start: 0;
-    display: flex;
 }
 
 .add {
