@@ -208,9 +208,10 @@ button {
 .edit_form,
 .delete_items {
     background-color: #ffffff;
-    margin-block-start: 161px;
-    padding-block-start: 53px;
-    padding-block-end: 189px;
+    margin-block-start: 80px;
+    margin-block-end: 80px;
+    padding-block-start: 46px;
+    padding-block-end: 159px;
     padding-inline-start: 264px;
     padding-inline-end: 298px;
     color: #094067;
@@ -220,6 +221,7 @@ button {
 .edit_form > h2,
 .delete_items > h2 {
     margin-block-start: 38px;
+    margin-block-end: 0;
 }
 
 .add_form > fieldset,
@@ -231,6 +233,11 @@ button {
 .add_form > fieldset > label,
 .edit_form > fieldset > label {
     margin-block-start: 11px;
+}
+
+.add_form > fieldset > label:nth-child(1) ,
+.edit_form > fieldset > label:nth-child(1) {
+    margin-block-start: 32px;
 }
 
 .add_form > fieldset > input,
@@ -432,16 +439,18 @@ input {
 
     .buttons {
         margin-inline-start: 45px;
+        margin-block-start: 44px;
+        margin-block-end: -10px;
     }
 
     .navigation {
         margin: 0;
         padding: 16px;
+        padding-block-end: 10px;
         list-style: none;
         display: flex;
         flex-direction: row;
-        background-color: #ffffff;
-        padding: 22px;
+        background-color: #ffffff;  
         gap: 39px;
         border-radius: 10px;
     }
@@ -453,7 +462,7 @@ input {
         border-radius: 5px;
         border: none;
         background-color: #ef4565; 
-        margin-block-start: 63px;
+        margin-block-start: 48px;
         margin-block-end: 32px;
         color: #ffffff;
         font-size: 18px;
