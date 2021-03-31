@@ -122,19 +122,31 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 const personList = document.querySelector('.people');
 const addBttn = document.querySelector('.add');
 const filterInput = document.querySelector('.search_by_name');
-const filterMonth = document.querySelector('.filter_by_month'); // A function that fetch the data.
+const filterByMonth = document.querySelector('.filter_by_month'); // A function that fetch the data.
 
 async function fetchPeople() {
   const response = await fetch('./people.json');
-  const data = await response.json();
-  let result = [];
-  const sortedPeople = data.sort(function (a, b) {
-    return new Date(a.birthday).getMonth() + 1 - new Date(b.birthday).getMonth() + 1;
-  });
-  result = sortedPeople; // Generate the data into html.
+  let data = await response.json();
+
+  function calculateBirthdayDate(item) {
+    let birthTime = new Date(item.birthday);
+    let birthDate = birthTime.getDate();
+    let birthMonth = birthTime.getMonth();
+    let today = new Date();
+    let thisYear = today.getFullYear();
+    let birthdayYear = new Date(thisYear, birthMonth, birthDate);
+    let oneDay = 1000 * 60 * 60 * 24;
+    let numberOfDaysLeft = Math.ceil((birthdayYear.getTime() - today.getTime()) / oneDay);
+    let birthdayInDays = numberOfDaysLeft < 0 ? 365 + numberOfDaysLeft : numberOfDaysLeft;
+    return birthdayInDays;
+  } // Generate the data into html.
+
 
   function htmlGenerator(arr) {
-    return arr.map(item => {
+    const sortBirthday = arr.sort((a, b) => {
+      return calculateBirthdayDate(a) - calculateBirthdayDate(b);
+    });
+    return sortBirthday.map(item => {
       const birthdayDate = new Date(item.birthday);
 
       function ordinary_suffix_of(d) {
@@ -167,13 +179,21 @@ async function fetchPeople() {
       let monthName = birthdayDate.toLocaleString('default', {
         month: 'long'
       });
-      const today = new Date(); // To get the number of days untill your next birthday.
+      const today = new Date();
+      let myDate = new Date(item.birthday);
+      let birthdayMonth = myDate.getMonth() + 1;
+      let birtdayDay = myDate.getDate();
+      const todayDate = today.getFullYear();
+      const birthDayDates = new Date(todayDate, birthdayMonth - 1, birtdayDay);
+      let oneDay = 1000 * 60 * 60 * 24;
+      const getTheDate = Math.ceil(birthDayDates.getTime() - today.getTime() / oneDay);
+      const dayLeft = calculateBirthdayDate(item);
+      const futureBirthday = getTheDate > 1 ? "days" : "day"; // To get the number of days untill your next birthday.
 
       if (today > birthdayDate) {
         birthdayDate.setFullYear(today.getFullYear() + 1);
       }
 
-      const difference_in_days = Math.floor((birthdayDate - today) / (1000 * 60 * 60 * 24));
       return `
                 <ul data-id="${item.id}" class="navigation">
                     <li class="list_item">
@@ -183,18 +203,20 @@ async function fetchPeople() {
                         <h4>${item.firstName} ${item.lastName}</h4>
                         <p class="birthday">Turn <small class="age">${age}</small> on ${monthName} ${ordinary_suffix_of(day)}. </p>
                     </li>
-                    <li class="list_item"> 
-                        <p class="next_birthday">In ${difference_in_days} days</p>
+                    <li class="list_item list_item--buttons"> 
+                        <p class="next_birthday">In ${dayLeft} ${futureBirthday}</p>
 
                         <div class="buttons">
                             <button class="edit" id="${item.id}">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z"/></svg>
+                                <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13.75 5H5C4.33696 5 3.70107 5.26339 3.23223 5.73223C2.76339 6.20107 2.5 6.83696 2.5 7.5V25C2.5 25.663 2.76339 26.2989 3.23223 26.7678C3.70107 27.2366 4.33696 27.5 5 27.5H22.5C23.163 27.5 23.7989 27.2366 24.2678 26.7678C24.7366 26.2989 25 25.663 25 25V16.25" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M23.125 3.125C23.6223 2.62772 24.2967 2.34835 25 2.34835C25.7033 2.34835 26.3777 2.62772 26.875 3.125C27.3723 3.62228 27.6517 4.29674 27.6517 5C27.6517 5.70326 27.3723 6.37772 26.875 6.875L15 18.75L10 20L11.25 15L23.125 3.125Z" stroke="#094067" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>                            
                             </button>
                             <button class="delete" id="${item.id}">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="24" fill="#EF4565" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M22 3H7c-.69 0-1.23.35-1.59.88L0 12l5.41 8.11c.36.53.9.89 1.59.89h15c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H7.07L2.4 12l4.66-7H22v14zm-11.59-2L14 13.41 17.59 17 19 15.59 15.41 12 19 8.41 17.59 7 14 10.59 10.41 7 9 8.41 12.59 12 9 15.59z"/></svg>
                             </button>
                         </div>
-
                     </li>
                 </ul>
             `;
@@ -203,7 +225,7 @@ async function fetchPeople() {
 
 
   function displayPeople() {
-    const html = htmlGenerator(result);
+    const html = htmlGenerator(data);
     personList.innerHTML = html;
   }
 
@@ -223,28 +245,32 @@ async function fetchPeople() {
   const handleAddBttn = async e => {
     return new Promise(async function (resolve, reject) {
       let popup = document.createElement('form');
-      popup.classList.add('form'); // HTML for the form that we need for adding some new people.
+      popup.classList.add('form');
+      const dateInput = new Date().toISOString().slice(0, 10); // HTML for the form that we need for adding some new people.
 
       const html = `
                 <div class="add_form">
-                    <h2 class="add_header">Add your name and your birthday</h2>
+                    <button class="close_button">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                    </button>
+                    <h2 class="add_header">Add a new person</h2>
                     <fieldset>
-                        <label for="firstname">First name</label>
+                        <label for="firstname">Firstname</label>
                         <input type="text" id="firstname" name="firstName" placeholder="enter your firstname" required>
                     </fieldset>
                     <fieldset>
-                        <label for="lastname">Last name</label>
+                        <label for="lastname">Lastname</label>
                         <input type="text" id="lastname" name="lastName" placeholder="enter your lastname" required>
                     </fieldset>
                     <fieldset>
                         <label for="birthday">Birthday</label>
-                        <input type="date" id="birthday" name="birthday" placeholder="enter your birthday" required>
+                        <input class="birthday_date" type="date" id="birthday" max="${dateInput}" name="birthday" placeholder="enter your birthday" required>
                     </fieldset>
                     <fieldset>
                         <label for="profile">Avatar image</label>
                         <input type="text" id="profile" name="picture" placeholder="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWPtccjWVFluoAnrs-ZL_dmwSIt0SC_9CSnw&usqp=CAU">
                     </fieldset>
-                    <button class="submitbttn" type="submit">Submit</button>
+                    <button class="submitbttn" type="submit">Submit person</button>
                 </div>
             `;
       popup.innerHTML = html;
@@ -276,7 +302,7 @@ async function fetchPeople() {
           picture: formEl.picture.value,
           id: Date.now()
         };
-        result.push(newPerson);
+        data.push(newPerson);
         personList.dispatchEvent(new CustomEvent('editInformation'));
         displayPeople();
         destroyPopup(popup);
@@ -292,14 +318,17 @@ async function fetchPeople() {
                         </li>
                         <li>${newPerson.birthday}</li>
                         <li>
-                            <button class="edit">
-                                <svg class="w-6 h-6" width="32px" height="32px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                            </button>
+                            
                         </li>
                         <li>
-                            <button class="delete">
-                                <svg class="w-6 h-6" width="32px" height="32px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                            </button>
+                            <div class="buttons">
+                                <button class="edit">
+                                    <svg class="w-6 h-6" width="32px" height="32px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                </button>
+                                <button class="delete">
+                                    <svg class="w-6 h-6" width="32px" height="32px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                </button>
+                            </div>
                         </li>
                     </ul>
                 `;
@@ -335,32 +364,39 @@ async function fetchPeople() {
 
   const handleEditBttn = id => {
     // Find the data which you want to edit.
-    let editPerson = result.find(person => person.id === id);
+    let editPerson = data.find(person => person.id == id);
     return new Promise(function (resolve, reject) {
       let popup = document.createElement('form');
+      let dateInput = new Date().toISOString().slice(0, 10);
+      let formatDate = new Date(editPerson.birthday).toISOString().slice(0, 10);
       popup.classList.add('form');
       popup.classList.add('open'); // HTML for the edit form.
 
       const html = `
                 <div class="edit_form">
+                    <div>
+                        <button class="close_button">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                        </button>
+                    </div>
                     <h2 class="edit_header">Edit ${editPerson.firstName} ${editPerson.lastName}</h2>
                     <fieldset>
-                        <label for="firstname">Your firstname</label>
-                        <input type="text" id="firstname" value="${editPerson.firstName}">
+                        <label for="firstname">Firstname</label>
+                        <input type="text" name="firstname" id="firstname" value="${editPerson.firstName}">
                     </fieldset>
                     <fieldset>
-                        <label for="lastname">Your lastname</label>
-                        <input type="text" id="lastname" value="${editPerson.lastName}">
+                        <label for="lastname">Lastname</label>
+                        <input type="text" name="lastname" id="lastname" value="${editPerson.lastName}">
                     </fieldset>
                     <fieldset>
-                        <label for="birthday">Your birthday date</label>
-                        <input type="date" id="birthday"">
+                        <label for="birthday">Birthday date</label>
+                        <input class="birthday_date" type="date" value="${formatDate}" name="birthdayDate" max="${dateInput}" id="birthday">
                     </fieldset>
                     <fieldset>
                         <label for="picture">Profile picture</label>
-                        <input type="url" id="picture" value="${editPerson.picture}">
+                        <input type="url" id="picture" name="picture" value="${editPerson.picture}">
                     </fieldset>
-                    <button class="submitbttn" name="submit" type="submit">Submit</button>
+                    <button class="submitbttn" name="submit" type="submit">Save changes</button>
                 </div>
             `;
       popup.insertAdjacentHTML('afterbegin', html);
@@ -404,7 +440,10 @@ async function fetchPeople() {
 
       const html = `
             <div class="delete_items">
-                <h3 class="delete_header">Do you want to delete this?</h3>
+                <button class="close_button">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                </button>
+                <h3 class="delete_header">Want to delete this?</h3>
                 <div>
                     <button class="delete_item" type="button">Delete</button>
                 </div>
@@ -416,7 +455,7 @@ async function fetchPeople() {
         const skipButton = document.createElement('button');
         skipButton.type = "button";
         skipButton.textContent = "Cancel";
-        skipButton.classList.add('cancel');
+        skipButton.classList.add('Cancel');
         div.firstElementChild.appendChild(skipButton);
         skipButton.addEventListener('click', () => {
           resolve(null);
@@ -425,12 +464,12 @@ async function fetchPeople() {
       }
 
       div.addEventListener('click', e => {
-        const filteredArr = result.filter(person => person.id != id);
+        const filteredArr = data.filter(person => person.id != id);
         let deleteBttn = document.querySelector('button.delete_item');
 
         if (deleteBttn) {
-          result = filteredArr;
-          displayPeople(result);
+          data = filteredArr;
+          displayPeople(data);
           destroyPopup(div);
         }
       });
@@ -446,7 +485,7 @@ async function fetchPeople() {
     const listItem = JSON.parse(stringForm);
 
     if (listItem) {
-      result = listItem;
+      data = listItem;
       personList.dispatchEvent(new CustomEvent('editInformation'));
     } else {
       result = [];
@@ -454,27 +493,22 @@ async function fetchPeople() {
   };
 
   const editLocalStorage = () => {
-    localStorage.setItem('result', JSON.stringify(result));
+    localStorage.setItem('result', JSON.stringify(data));
+  };
+
+  const filterPeople = () => {
+    const nameFilter = filterInput.value.toLowerCase();
+    const monthFilter = Number(filterByMonth.value);
+    const filteredPeople = data.filter(person => (nameFilter ? person.lastName.toLowerCase().includes(nameFilter) || person.firstName.toLowerCase().includes(nameFilter) : true) && (monthFilter ? new Date(person.birthday).getMonth() + 1 === monthFilter : true));
+    personList.innerHTML = htmlGenerator(filteredPeople);
   }; // events for the search input and the select in index.html page.
 
 
   filterInput.addEventListener('input', function (e) {
-    let filteredArr = result.filter(name => {
-      return name.firstName.toLowerCase().includes(e.target.value.toLowerCase());
-    });
-    let names = htmlGenerator(filteredArr);
-    personList.innerHTML = names;
+    filterPeople();
   });
-  filterMonth.addEventListener('change', function (e) {
-    let filteredMonth = result.filter(month => {
-      let birthDate = new Date(month.birthday);
-      let monthName = birthDate.toLocaleString('default', {
-        month: 'long'
-      });
-      return monthName == e.target.value;
-    });
-    let month = htmlGenerator(filteredMonth);
-    personList.innerHTML = month;
+  filterByMonth.addEventListener('input', function (e) {
+    filterPeople();
   }); // Event listener and event delegation.
 
   addBttn.addEventListener('click', handleAddBttn);
@@ -514,7 +548,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56497" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59966" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

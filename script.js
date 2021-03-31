@@ -81,7 +81,7 @@ async function fetchPeople() {
                     </li>
                     <li class="list_item names" data-value="${item.firstName}">
                         <h4>${item.firstName} ${item.lastName}</h4>
-                        <p class="birthday">Turn <small class="age">${age}</small> on ${monthName} ${ordinary_suffix_of(day)}. </p>
+                        <p class="birthday">Turns <small class="age">${age}</small> on ${monthName} ${ordinary_suffix_of(day)}. </p>
                     </li>
                     <li class="list_item list_item--buttons"> 
                         <p class="next_birthday">In ${dayLeft} ${futureBirthday}</p>
