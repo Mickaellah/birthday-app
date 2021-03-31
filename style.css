@@ -407,6 +407,10 @@ input {
     .close_button {
         margin-inline-start: 110%;
     }
+
+    h2, .delete_header {
+        font-size: 32px;
+    }
 }
 
 @media only screen and (min-width: 600px) and (max-width: 900px) {
