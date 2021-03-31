@@ -1,19 +1,8 @@
 # hit-parade-react
 
-## Table of Contents
-
--   [Overview](#overview)
--   [Built With](#built-with)
--   [Features](#features)
--   [How does it work](#how-does-it-work)
--   [How To use](#how-to-use)
--   [Contact](#contact)
-
-<!-- OVERVIEW -->
-
 ## Overview
 
-![screenshot](./birthday-app.jpg)
+![screenshot](./birthday_app.jpg)
 
 ## Built With
 
@@ -49,5 +38,4 @@ $ npm start
 
 ## Contact
 
--   Website [your-website.com](https://{your-web-site-link})
 -   GitHub [@Mickaella](https://github.com/Mickaellah/birthday-app)
