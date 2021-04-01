@@ -1,4 +1,4 @@
-# hit-parade-react
+# Birthday app
 
 ## Overview
 
