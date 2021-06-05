@@ -201,7 +201,7 @@ async function fetchPeople() {
                     </li>
                     <li class="list_item names" data-value="${item.firstName}">
                         <h4>${item.firstName} ${item.lastName}</h4>
-                        <p class="birthday">Turn <small class="age">${age}</small> on ${monthName} ${ordinary_suffix_of(day)}. </p>
+                        <p class="birthday">Turns <small class="age">${age}</small> on ${monthName} ${ordinary_suffix_of(day)}. </p>
                     </li>
                     <li class="list_item list_item--buttons"> 
                         <p class="next_birthday">In ${dayLeft} ${futureBirthday}</p>
@@ -520,7 +520,7 @@ async function fetchPeople() {
 
 
 fetchPeople();
-},{}],"../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -548,7 +548,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59966" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42263" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -724,5 +724,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","script.js"], null)
+},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","script.js"], null)
 //# sourceMappingURL=/script.75da7f30.js.map

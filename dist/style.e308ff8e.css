@@ -111,7 +111,6 @@ select {
 
 .filter_by_month {
     padding-inline-end: 123px;
-    width: 100%;
 }
 
 .search_by_name,
@@ -427,7 +426,7 @@ input {
     .inputs {
         display: flex;
         flex-direction: row;
-        gap: 35px;
+        justify-content: space-between;
     }
     .profile {
         margin-inline-start: 22px;
@@ -515,9 +514,8 @@ input {
     }
 
     .delete_items > .close_button {
-        margin-inline-start: 150%;
+        margin-inline-start: 138%;
     }
 }
-
 
 /*# sourceMappingURL=/style.e308ff8e.css.map */
