@@ -67,7 +67,9 @@ async function fetchPeople() {
             const getTheDate = Math.ceil((birthDayDates.getTime() - today.getTime() / oneDay));
 
             const dayLeft = calculateBirthdayDate(item);
-            const futureBirthday = getTheDate > 1 ? "days" : "day";
+            const futureBirthday = dayLeft > 1 ? "days" : "day";
+
+            const birthdayIsToday = `It's today`
 
             // To get the number of days untill your next birthday.
             if (today > birthdayDate) {
@@ -84,7 +86,7 @@ async function fetchPeople() {
                         <p class="birthday">Turns <small class="age">${age}</small> on ${monthName} ${ordinary_suffix_of(day)}. </p>
                     </li>
                     <li class="list_item list_item--buttons"> 
-                        <p class="next_birthday">In ${dayLeft} ${futureBirthday}</p>
+                        <p class="next_birthday"> ${dayLeft > 0 ? `In ${dayLeft} ${futureBirthday}` : birthdayIsToday } </p>
 
                         <div class="buttons">
                             <button class="edit" id="${item.id}">
