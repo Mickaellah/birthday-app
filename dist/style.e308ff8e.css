@@ -78,21 +78,6 @@ select {
     text-overflow: '';
 }
 
-.custom-selectbox {
-    position: relative;
-}
-
-.custom-selectbox::after{
-	content: "›";
-	height: 6px;
-	width: 12px;
-	position: absolute;
-    top: 38px;
-    right: 24px;
-	transition: all 0.3s linear;
-    transform: rotate(90deg);
-}
-
 .filter_name,
 .filter_month {
     padding: 0;
@@ -111,6 +96,9 @@ select {
 
 .filter_by_month {
     padding-inline-end: 123px;
+    background-image: url('/arrow.23e3b608.svg');
+    background-repeat: no-repeat;
+    background-position: 90% 50%;
 }
 
 .search_by_name,
@@ -441,6 +429,7 @@ input {
     }
 
     .buttons {
+        display: flex;
         margin-inline-start: 45px;
         margin-block-start: 44px;
         margin-block-end: -10px;

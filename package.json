@@ -20,8 +20,7 @@
     "url": "https://github.com/Mickaellah/birthday-app/issues"
   },
   "homepage": "https://github.com/Mickaellah/birthday-app#readme",
-  "dependencies": {
-    "date-fns": "^2.16.1",
-    "waait": "^1.0.5"
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
   }
 }

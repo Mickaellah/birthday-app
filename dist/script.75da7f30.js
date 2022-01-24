@@ -188,7 +188,8 @@ async function fetchPeople() {
       let oneDay = 1000 * 60 * 60 * 24;
       const getTheDate = Math.ceil(birthDayDates.getTime() - today.getTime() / oneDay);
       const dayLeft = calculateBirthdayDate(item);
-      const futureBirthday = getTheDate > 1 ? "days" : "day"; // To get the number of days untill your next birthday.
+      const futureBirthday = dayLeft > 1 ? "days" : "day";
+      const birthdayIsToday = `It's today`; // To get the number of days untill your next birthday.
 
       if (today > birthdayDate) {
         birthdayDate.setFullYear(today.getFullYear() + 1);
@@ -204,7 +205,7 @@ async function fetchPeople() {
                         <p class="birthday">Turns <small class="age">${age}</small> on ${monthName} ${ordinary_suffix_of(day)}. </p>
                     </li>
                     <li class="list_item list_item--buttons"> 
-                        <p class="next_birthday">In ${dayLeft} ${futureBirthday}</p>
+                        <p class="next_birthday"> ${dayLeft > 0 ? `In ${dayLeft} ${futureBirthday}` : birthdayIsToday} </p>
 
                         <div class="buttons">
                             <button class="edit" id="${item.id}">
@@ -317,18 +318,13 @@ async function fetchPeople() {
                             ${newPerson.firstName} ${newPerson.lastname}
                         </li>
                         <li>${newPerson.birthday}</li>
-                        <li>
-                            
-                        </li>
-                        <li>
-                            <div class="buttons">
+                        <li class="buttons">
                                 <button class="edit">
                                     <svg class="w-6 h-6" width="32px" height="32px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                                 </button>
                                 <button class="delete">
                                     <svg class="w-6 h-6" width="32px" height="32px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                 </button>
-                            </div>
                         </li>
                     </ul>
                 `;
@@ -548,7 +544,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42263" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39867" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
